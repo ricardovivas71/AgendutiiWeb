@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>agendarCita</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="progress-holder">
+    <ion-row text-center class="status">
+      <ion-col class="processing" *ngFor="let bullet of numberss; let i = index"
+        [ngClass]="{'processing-active': activeIndex >= i}">
+        <ion-icon name="ios-checkmark-circle"></ion-icon>
+        <span>{{steps[bullet]}}</span>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div>
+    <ion-slides #theslides pager="false" scrollbar="false" (ionSlideDidChange)="onSlideChange()">
+      <ion-slide>
+
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+</ion-content>

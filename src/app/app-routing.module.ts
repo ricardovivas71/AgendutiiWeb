@@ -35,6 +35,12 @@ const routes: Routes = [
   { path: 'extras/charts', loadChildren: () => import('./pages/extras/charts/charts.module').then(m => m.ChartsPageModule) },
   { path: 'extras/post', loadChildren: () => import('./pages/extras/post/post.module').then(m => m.PostPageModule) },
   { path: '**', redirectTo: '/home-results' },
+
+  {
+    path: 'agendar-cita',
+    loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)
+  }
+
 ];
 
 @NgModule({
