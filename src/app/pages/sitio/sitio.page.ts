@@ -43,8 +43,6 @@ export class SitioPage implements OnInit {
     private router: Router,) { }
 
   ngOnInit() {
-
-    console.log("TItulo...", this.tituloPagina);
     this.tituloPagina = this.activatedRoute.snapshot.paramMap.get('titulo');
     this.idCiudadBarrio = parseInt(this.activatedRoute.snapshot.paramMap.get('idCiudad'));
     if(this.tituloPagina == "Buscar barrios"){
