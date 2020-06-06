@@ -36,11 +36,13 @@ const routes: Routes = [
   { path: 'extras/post', loadChildren: () => import('./pages/extras/post/post.module').then(m => m.PostPageModule) },
   // { path: '**', redirectTo: '/home-results' },
   { path: 'sitio', loadChildren: () => import('./pages/sitio/sitio.module').then( m => m.SitioPageModule)},
-
+  { path: 'lista-establecimientos', loadChildren: () => import('./pages/lista-establecimientos/lista-establecimientos.module').then( m => m.ListaEstablecimientosPageModule)},
   {
     path: 'agendar-cita',
     loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)
   },
+  
+
 
 ];
 

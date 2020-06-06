@@ -112,4 +112,8 @@ export class SitioPage implements OnInit {
     }
   }
 
+  onCancel() {
+    this.inicializarLista();
+  }
+
 }
