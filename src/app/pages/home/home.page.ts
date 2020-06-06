@@ -10,7 +10,7 @@ import { HomeService } from 'src/app/providers/home/home.service';
 
 import { NavController, MenuController, LoadingController } from '@ionic/angular';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
 
 @Component({
@@ -92,7 +92,7 @@ export class HomePage implements OnInit {
   * Descripción: Dirige a la pantalla de selecionar Ciudades
   */
   obtenerCiudad() {
-    this.router.navigate(['/sitio',{titulo: 'Buscar ciudades'}]);
+    this.router.navigate(['/sitio',{ titulo: 'Buscar ciudades'}]);
   }
 
   /**

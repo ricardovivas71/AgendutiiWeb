@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
-import { HomePage } from './home.page';
 import { Routes, RouterModule } from '@angular/router';
+
+import { SitioPage } from './sitio.page';
 import { HomeService } from 'src/app/providers/home/home.service';
 import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePage
+    component: SitioPage
   }
 ];
 
@@ -21,10 +21,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [HomePage],
+  declarations: [SitioPage],
   providers:[HomeService,VariablesGlobalesService]
 })
-export class HomePageModule {}
+export class SitioPageModule {}

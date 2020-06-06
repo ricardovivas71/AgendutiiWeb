@@ -39,7 +39,7 @@
       </ul>
     </ion-row>
     <ion-row>
-      <ion-item style="width: 100%;" button (click)="obtenerCiudad()">
+      <ion-item style="width: 100%;" tappable (click)="obtenerCiudad()">
         <ion-label *ngIf="!ciudadSeleccionada">En qué ciudad estás buscando</ion-label>
         <ion-label *ngIf="ciudadSeleccionada">{{ciudadSeleccionada.nombre}}</ion-label>
         <ion-icon name="arrow-forward-circle-outline"></ion-icon>

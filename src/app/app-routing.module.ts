@@ -34,12 +34,13 @@ const routes: Routes = [
   { path: 'extras/popupmenu', loadChildren: () => import('./pages/extras/popupmenu/popupmenu.module').then(m => m.PopupmenuPageModule) },
   { path: 'extras/charts', loadChildren: () => import('./pages/extras/charts/charts.module').then(m => m.ChartsPageModule) },
   { path: 'extras/post', loadChildren: () => import('./pages/extras/post/post.module').then(m => m.PostPageModule) },
-  { path: '**', redirectTo: '/home-results' },
+  // { path: '**', redirectTo: '/home-results' },
+  { path: 'sitio', loadChildren: () => import('./pages/sitio/sitio.module').then( m => m.SitioPageModule)},
 
   {
     path: 'agendar-cita',
     loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)
-  }
+  },
 
 ];
 
