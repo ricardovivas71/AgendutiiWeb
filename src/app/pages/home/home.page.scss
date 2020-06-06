@@ -1,0 +1,71 @@
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
+::ng-deep .mat-form-field-label-wrapper { top: -1.5em; }
+
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+
+.loc-caption:before {
+  content: attr(title);
+  display: block;
+}
+
+ul {
+  text-align: center;
+  padding: 0;
+  width: 100%;
+}
+
+li {
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+li:hover {
+  background-color:#EDFEFF;
+  cursor: pointer;
+}
+li.selected {
+  border: 1px solid;
+  border-radius: 20px;
+  border-color: #15EFFC;
+  background-color: #EDFEFF;
+}
+li.active {
+  border: 1px solid;
+  border-radius: 20px;
+  border-color: #15EFFC;
+  background-color: #EDFEFF;
+}
+
+.servicioSelected{
+  border: 1px solid;
+  border-radius: 20px;
+  border-color: #15EFFC;
+  background-color: #EDFEFF;
+}
+
+ul li:hover{
+  background: #EDFEFF;
+}
+li img {
+  max-width: 100%;
+  height: auto;
+}
+ion-icon {
+  &.big {
+    width: 50px;
+    height: 50px;
+  }
+
+  &.bigger {
+    width: 100px;
+    height: 100px;
+  }
+
+  &.red {
+    color: red;
+  }
+}
