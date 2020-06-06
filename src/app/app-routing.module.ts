@@ -5,6 +5,7 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/walkthrough/walkthrough.module').then(m => m.WalkthroughPageModule) },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule) },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule) },
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
   { path: 'home-location', loadChildren: () => import('./pages/home-location/home-location.module').then(m => m.HomeLocationPageModule) },
   { path: 'about', loadChildren: () => import('./pages/about/about.module').then(m => m.AboutPageModule) },
   { path: 'support', loadChildren: () => import('./pages/support/support.module').then(m => m.SupportPageModule) },
@@ -33,9 +34,7 @@ const routes: Routes = [
   { path: 'extras/popupmenu', loadChildren: () => import('./pages/extras/popupmenu/popupmenu.module').then(m => m.PopupmenuPageModule) },
   { path: 'extras/charts', loadChildren: () => import('./pages/extras/charts/charts.module').then(m => m.ChartsPageModule) },
   { path: 'extras/post', loadChildren: () => import('./pages/extras/post/post.module').then(m => m.PostPageModule) },
-  { path: '**', redirectTo: '/home-results' }
-
-
+  { path: '**', redirectTo: '/home-results' },
 ];
 
 @NgModule({
