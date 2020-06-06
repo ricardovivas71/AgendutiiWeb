@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { TipoServiciosModel } from 'src/app/models/home/tipoServicios.model';
+import { EstablecimientoModel } from 'src/app/models/establecimientos/establecimiento.model';
+import { LocalizacionModel } from 'src/app/models/home/localizacion.model';
+import { busquedaDTOModel } from 'src/app/models/home/busquedaDTO.model';
+import { BuscarEstablecimientoModel } from 'src/app/models/establecimientos/buscarEstablecimientoDTO.model';
+
+import { BarrioModel } from 'src/app/models/home/barrio.model';
+import { HomeService } from 'src/app/providers/home/home.service';
+
+import { Router, ActivatedRoute } from '@angular/router';
+import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
 
 @Component({
   selector: 'app-home',

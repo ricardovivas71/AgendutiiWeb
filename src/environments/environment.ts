@@ -1,5 +1,6 @@
 export const environment = {
   production: false, // set TRUE before you build and release a prod version.
+  apiAgendamiento : 'http://localhost:65393',
   // Set your app configurations here.
   // For the list of config options, please refer to https://ionicframework.com/docs/api/config/Config/
   config: {
