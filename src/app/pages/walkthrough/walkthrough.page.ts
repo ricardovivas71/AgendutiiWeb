@@ -61,8 +61,13 @@ export class WalkthroughPage implements OnInit {
   // 	this.slides.slideTo(3, 300)
   // }
 
-  openHomeLocation() {
-    this.navCtrl.navigateRoot('/home-location');
+  // openHomeLocation() {
+  //   this.navCtrl.navigateRoot('/home-location');
+  //   // this.router.navigateByUrl('/tabs/(home:home)');
+  // }
+
+  openHome() {
+    this.navCtrl.navigateRoot('/home');
     // this.router.navigateByUrl('/tabs/(home:home)');
   }
 
