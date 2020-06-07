@@ -27,30 +27,30 @@
                     <ion-text color="dark"><strong>{{cita.nombreEstablecimiento}}</strong></ion-text>
                 </h2>
                 <p class="text-12x">
-                  <ion-icon name="location-outline"></ion-icon>
+                  <ion-icon name="location"></ion-icon>
                   <ion-text color="primary">{{cita.direccionEstablecimiento}}</ion-text>
                 </p>
                 <p class="text-12x">
-                    <ion-icon name="calendar-outline"></ion-icon>
+                    <ion-icon name="calendar"></ion-icon>
                     <ion-text color="primary">{{cita.fechaCita}}</ion-text>
                 </p>
                 <p class="text-12x">
-                    <ion-icon name="document-text-outline"></ion-icon>
+                    <ion-icon name="document"></ion-icon>
                     <ion-text color="primary">{{cita.servicio}}</ion-text> ∙ ∙ 
-                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-icon name="person"></ion-icon>
                     <ion-text color="secondary">{{ cita.colaborador }}</ion-text>
                 </p>
 
                 <ion-badge slot="end" color="primary">
-                  <ion-text color="light"><ion-icon name="cash-outline"></ion-icon> $ {{cita.precio}}</ion-text> 
+                  <ion-text color="light"><ion-icon name="cash"></ion-icon> $ {{cita.precio}}</ion-text> 
                 </ion-badge>
     
                 <ion-badge slot="end" color="secondary">
-                  <ion-text color="light"><ion-icon name="alarm-outline"></ion-icon> {{cita.tiempoAtencion}} min</ion-text>
+                  <ion-text color="light"><ion-icon name="alarm"></ion-icon> {{cita.tiempoAtencion}} min</ion-text>
                 </ion-badge>
 
                 <ion-badge slot="end" color="secondary">
-                    <ion-text color="light">{{cita.estado}} min</ion-text>
+                    <ion-text color="light">{{cita.estado}}</ion-text>
                 </ion-badge>
               </ion-label>
             </ion-item>
