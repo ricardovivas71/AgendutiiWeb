@@ -12,7 +12,8 @@ export class Constantes{
     public static readonly ApiConsultarDispColaborador = "/api/agendamiento/busqueda/horariosEmpleado";
     public static readonly ApiAgendarCita = "/api/agendamiento/Cita/Nueva";
     public static readonly ApiRegistrarUsuario = "/api/agendamiento/Usuario/NuevoUsuario";
-    public static readonly ApiConsultarCitasPropias = "/api/agendamiento/Cita/Propias"
+    public static readonly ApiConsultarCitasPropias = "/api/agendamiento/Cita/Propias";
+    public static readonly ApiRegistrarEstablecimiento = "/api/agendamiento/establecimiento/registrar";
 
     
 }
