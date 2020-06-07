@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/walkthrough/walkthrough.module').then(m => m.WalkthroughPageModule) },
+  { path: 'agendar-cita',loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)},
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule) },
   { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule) },
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule) },
@@ -35,11 +36,6 @@ const routes: Routes = [
   { path: 'extras/charts', loadChildren: () => import('./pages/extras/charts/charts.module').then(m => m.ChartsPageModule) },
   { path: 'extras/post', loadChildren: () => import('./pages/extras/post/post.module').then(m => m.PostPageModule) },
   { path: '**', redirectTo: '/home-results' },
-
-  {
-    path: 'agendar-cita',
-    loadChildren: () => import('./pages/agendar-cita/agendar-cita.module').then( m => m.AgendarCitaPageModule)
-  }
 
 ];
 
