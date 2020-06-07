@@ -37,6 +37,12 @@ export class AppComponent {
         icon: 'browsers'
       },
       {
+        title: 'Mis Establecimientos',
+        url: '/mis-establecimientos',
+        direct: 'root',
+        icon: 'home'
+      },
+      {
         title: 'Home Results',
         url: '/home-results',
         direct: 'root',
