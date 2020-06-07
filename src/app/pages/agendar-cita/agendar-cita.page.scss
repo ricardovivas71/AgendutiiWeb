@@ -166,21 +166,24 @@ ion-content
     }
   
 }
-.hora-selector{
+
+.button-selector2{
     ion-radio-group{
         ion-item{
             --border-radius:5px;
             border-radius: 5px !important;
             font-size: 0.8rem !important;
-            box-shadow: 0px 3px 6px rgba(156, 165, 252, 0.356) !important;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16) !important;
             ion-radio{
                 height: 0 !important;
                 width: 0 !important;
             }
         }
     }
+  
     .item-radio-checked {
         --color: white !important;
         --background: var(--ion-color-primary);
-    }
-}
+        background: var(--ion-color-primary) !important;
+      }
+  }

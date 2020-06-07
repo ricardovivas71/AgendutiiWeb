@@ -13,14 +13,28 @@
 
     <!-- Register form -->
     <form [formGroup]="onRegisterForm" class="list-form">
+
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
-          {{ 'app.label.fullname' | translate }}
+          <ion-icon name="person" item-start></ion-icon>
+          {{ 'app.label.nombre' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="text" formControlName="fullName"></ion-input>
+        <ion-input color="secondary" type="text" formControlName="nombre"></ion-input>
       </ion-item>
-      <p class="text08" *ngIf="onRegisterForm.get('fullName').touched && onRegisterForm.get('fullName').hasError('required')">
+      <p class="text08" *ngIf="onRegisterForm.get('nombre').touched && onRegisterForm.get('nombre').hasError('required')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.field' | translate }}
+        </ion-text>
+      </p>
+
+      <ion-item class="ion-no-padding animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="person" item-start></ion-icon>
+          {{ 'app.label.apellido' | translate }}
+        </ion-label>
+        <ion-input color="secondary" type="text" formControlName="apellido"></ion-input>
+      </ion-item>
+      <p class="text08" *ngIf="onRegisterForm.get('apellido').touched && onRegisterForm.get('apellido').hasError('required')">
         <ion-text color="warning">
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
@@ -41,16 +55,48 @@
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="lock" item-start></ion-icon>
-          {{ 'app.label.password' | translate }}
+          <ion-icon name="call" item-start></ion-icon>
+          {{ 'app.label.telefono' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="password" formControlName="password"></ion-input>
+        <ion-input color="secondary" type="telefono" formControlName="telefono"></ion-input>
       </ion-item>
-      <p color="warning" class="text08" *ngIf="onRegisterForm.get('password').touched && onRegisterForm.get('password').hasError('required')">
+      <p class="text08" *ngIf="onRegisterForm.get('telefono').touched && onRegisterForm.get('telefono').hasError('required')">
         <ion-text color="warning">
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+
+      <ion-item class="ion-no-padding animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          {{ 'app.label.password' | translate }}
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="contrasena"></ion-input>
+      </ion-item>
+      <p color="warning" class="text08" *ngIf="onRegisterForm.get('contrasena').touched && onRegisterForm.get('contrasena').hasError('required')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.field' | translate }}
+        </ion-text>
+      </p>
+
+      <ion-item class="ion-no-padding animated fadeInUp">
+        <ion-label position="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          {{ 'app.label.repassword' | translate }}
+        </ion-label>
+        <ion-input color="secondary" type="password" formControlName="reContrasena"></ion-input>
+      </ion-item>
+      <p color="warning" class="text08" *ngIf="onRegisterForm.get('reContrasena').touched && onRegisterForm.get('reContrasena').hasError('required')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.field' | translate }}
+        </ion-text>
+      </p>
+
+      <ion-item>
+        <ion-label class="label" color="primary"> {{ 'app.label.tipoUsuario' | translate }} </ion-label>
+        <ion-toggle formControlName="tipoUsuario"></ion-toggle>
+      </ion-item>
+
     </form>
 
     <div class="ion-margin-top">
@@ -60,7 +106,7 @@
         {{ 'app.button.signup' | translate }}
       </ion-button>
 
-      <p class="ion-text-center">
+      <!-- <p class="ion-text-center">
         <ion-text color="light">
           Or Sign Up with:
         </ion-text>
@@ -84,7 +130,7 @@
             </ion-button>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
 
     </div>
 

@@ -1,13 +1,23 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>agendarCita</ion-title>
+  <ion-toolbar color="primary" class="animated fadeIn">
+    <ion-buttons slot="start">
+      <ion-button size="small" shape="round" color="medium" (click)="messages()">
+        <ion-icon slot="icon-only" name="today-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-text color="light">
+        Agendar Cita - {{nombreEstablecimiento}}
+      </ion-text>
+    </ion-title>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <div class="progress-holder">
-    <ion-row text-center class="status">
+    <ion-row class="status ion-text-center">
       <ion-col class="processing" *ngFor="let bullet of numberss; let i = index"
         [ngClass]="{'processing-active': activeIndex >= i}">
         <ion-icon name="ios-checkmark-circle"></ion-icon>
@@ -49,7 +59,7 @@
                   <p>{{service.descripcion}}</p>
                 </ion-label>
                 <ion-radio slot="end" mode="ios" [value]="service.idServicio"
-                  (ionSelect)="obtenerEmpleado(service.idServicio)"></ion-radio>
+                  (ionSelect)="obtenerEmpleado(service)"></ion-radio>
               </ion-item>
             </div>
           </ion-radio-group>
@@ -63,7 +73,7 @@
                 <ion-avatar slot="start">
                   <img src="assets/img/avatar.jpeg" alt="">
                 </ion-avatar>
-                <ion-label text-wrap>{{empleado.nombre}}</ion-label>
+                <ion-label class="ion-text-wrap">{{empleado.nombre}}</ion-label>
                 <ion-radio [value]="empleado.idEmpleado"></ion-radio>
               </ion-item>
             </ion-col>
@@ -77,11 +87,11 @@
             </div>
             <h5>Selecciona la hora de tu cita!</h5>
             <ion-col size="12">
-              <div class="hora-selector">
-                <ion-radio-group name="time-slots" [(ngModel)]="horaSeleccionada">
+              <div class="button-selector2">
+                <ion-radio-group name="time-slots">
                   <ion-row>
-                    <ion-col size="4" text-center *ngFor="let lista of listaHorasDispAux">
-                      <ion-item lines="none" text-center>
+                    <ion-col size="4" class="ion-text-center" *ngFor="let lista of listaHorasDispAux">
+                      <ion-item lines="none" class="ion-text-center" (click)="obtenerHora(lista)">
                         <ion-label>{{lista.hora | date:'shortTime'}}</ion-label>
                         <ion-radio [value]="lista.hora"></ion-radio>
                       </ion-item>

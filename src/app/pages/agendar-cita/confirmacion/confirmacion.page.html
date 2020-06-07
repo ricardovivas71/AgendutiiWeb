@@ -10,52 +10,66 @@
       <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27"
         fill="transparent" />
     </svg>
-    <h2>Thank you for choosing us</h2>
-    <p>We'll see  you on appointment day</p>
+    <h2>Gracias por agendar tu cita con nosotros!</h2>
+    <p>Por favor confirma la información!</p>
   </div>
 
   <hr>
   <div class="bottom-holder">
     <div class="title">
-      <h4>Appointment Summary</h4>
+      <h4>Confirmacion</h4>
     </div>
     <div class="summary">
         <div class="holder" padding>
             <ion-item lines="none">
               <div class="start-slot">
-                <img src="assets/imgs/timer.svg" alt="">
-                <p>Time</p>
+                <ion-icon name="calendar-outline"></ion-icon>
+                <p>Fecha</p>
               </div>
-              <ion-label text-right>03:00PM,18 Nov 2019</ion-label>
+              <ion-label text-right>{{fechaInicioCita}}</ion-label>
             </ion-item>
             <ion-item lines="none">
               <div class="start-slot">
-                <img src="assets/imgs/shirt.svg" alt="">
-                <p>Service</p>
+                <ion-icon name="alarm-outline"></ion-icon>
+                <p>Hora</p>
               </div>
-              <ion-label text-right>Hair Color & Hair Spa</ion-label>
+              <ion-label text-right>{{horaSeleccionada | date:'shortTime'}}</ion-label>
             </ion-item>
             <ion-item lines="none">
               <div class="start-slot">
-                <img src="assets/imgs/person.svg" alt="">
-                <p>Barber Name</p>
+                <ion-icon name="reader-outline"></ion-icon>
+                <p>Servicio</p>
               </div>
-              <ion-label text-right>Martin Linney</ion-label>
+              <ion-label text-right>{{servicioSeleccionado.nombre}}</ion-label>
             </ion-item>
             <ion-item lines="none">
               <div class="start-slot">
-                <img src="assets/imgs/payment.svg" alt="">
-                <p>Payment</p>
+                <ion-icon name="person-circle-outline"></ion-icon>
+                <p>Colaborador</p>
               </div>
-              <ion-label text-right>$74.00</ion-label>
+              <ion-label text-right>{{colaboradorSeleccionado.nombre}}</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="start-slot">
+                <ion-icon name="cash-outline"></ion-icon>
+                <p>Precio</p>
+              </div>
+              <ion-label text-right>$ {{servicioSeleccionado.precio}}</ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <div class="start-slot">
+                <ion-icon name="hourglass-outline"></ion-icon>
+                <p>Tiempo Atención</p>
+              </div>
+              <ion-label text-right>{{servicioSeleccionado.tiempoAtencion}} min</ion-label>
             </ion-item>
           </div>
     </div>
   </div>
 
   <div class="btn-holder">
-    <ion-button expand="block" (click)="goHome()">
-      Done
+    <ion-button expand="block" (click)="AgendarCita()">
+      Agendar
     </ion-button>
   </div>
 </ion-content>

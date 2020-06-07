@@ -14,6 +14,7 @@ import { horarioEstablecimientoDtoModel } from 'src/app/models/agendar/horarioEs
 import { HorarioEmpleadoDtoModel } from 'src/app/models/agendar/horarioEmpleadoDto.model';
 import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { ConfirmacionPage } from './confirmacion/confirmacion.page';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-agendar-cita',
@@ -40,15 +41,22 @@ export class AgendarCitaPage implements OnInit {
   public listaHorasDisponibles: HorasDisponiblesModel[] = [];
   public quinceMinutos: number = 900000;
   public listaHorasDispAux: HorasDisponiblesModel[] = [];
+  public idEstablecimiento: number;
+  public nombreEstablecimiento: string;
+  horaSeleccionada: Date;
 
   constructor(private agendarService: AgendarService,
     @Inject(LOCALE_ID) private locale: string,
     public toastController: ToastController,
     private platform: Platform,
     public admobFree: AdMobFree,
-    private modalCtrl:ModalController) { }
+    private modalCtrl:ModalController,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.nombreEstablecimiento = this.activatedRoute.snapshot.paramMap.get('nombre');
+    console.log("ID ESTABLECIMIENTO",this.idEstablecimiento);
     this.inicializarStep();
     this.ConsultarServicios();
   }
@@ -97,9 +105,16 @@ export class AgendarCitaPage implements OnInit {
 
   async showSuccessModal()
   {
+    const fechaInicioCita = new Date(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual);
     const modal = await this.modalCtrl.create({
       component: ConfirmacionPage,
-      backdropDismiss: true
+      backdropDismiss: true,
+      componentProps: {
+        'fechaInicioCita': fechaInicioCita,
+        'colaboradorSeleccionado':this.colaboradorSeleccionado,
+        'servicioSeleccionado':this.servicioSeleccionado,
+        'horaSeleccionada':this.horaSeleccionada
+      }
     });
 
     return await modal.present();
@@ -119,8 +134,16 @@ export class AgendarCitaPage implements OnInit {
       })
   }
 
+  obtenerHora(event){
+    //console.log("Hora seleccionada",event);
+    this.horaSeleccionada = new Date(event.hora);
+    console.log("Hora seleccionada",this.horaSeleccionada);
+  }
+
+
   ModalColaborador(empleado) {
-    this.colaboradorSeleccionado = empleado.idEmpleado;
+    console.log("Colaborador seleccionado",empleado);
+    this.colaboradorSeleccionado = empleado;
     this.ObtenerHorasDisponibles();
   }
 
@@ -149,12 +172,13 @@ export class AgendarCitaPage implements OnInit {
     });
   }
 
-  obtenerEmpleado(idServicio) {
+  obtenerEmpleado(servicio) {
     this.colaboradorSeleccionado = undefined;
+    this.servicioSeleccionado = servicio;
     console.log("Servicio ngModel", event);
     this.listaEmpleados = [];
     let fechaFinal = new DatePipe(this.locale).transform(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual, Constantes.formatoFechaLargo, this.locale);
-    let oConsultarEmpleados = new ConsultarEmpleadosModel(/*this.idEstablecimiento*/1, idServicio, fechaFinal);
+    let oConsultarEmpleados = new ConsultarEmpleadosModel(this.idEstablecimiento, servicio.idServicio, fechaFinal);
     console.log("MODEL consultar empleados", oConsultarEmpleados);
     this.agendarService.consultarEmpleados(oConsultarEmpleados).subscribe(async resultado => {
       console.log("Resutlado consultar empleados", resultado);
@@ -180,7 +204,7 @@ export class AgendarCitaPage implements OnInit {
 
   ObtenerHorarioMinMaximo() {
     this.listaHorarioEstablecimiento = [];
-    let horarioEstablecimientoDto = new horarioEstablecimientoDtoModel(/*this.idEstablecimiento*/1, new DatePipe(this.locale).transform(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual, Constantes.formatoFechaLargo, this.locale));
+    let horarioEstablecimientoDto = new horarioEstablecimientoDtoModel(this.idEstablecimiento, new DatePipe(this.locale).transform(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual, Constantes.formatoFechaLargo, this.locale));
     this.agendarService.consultarHorarioEstablecimiento(horarioEstablecimientoDto).subscribe(resultado => {
       console.log("Resultado Horario Establecimiento", resultado);
       if (resultado.codigo == 1) {
