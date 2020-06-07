@@ -31,6 +31,12 @@ export class AppComponent {
   ) {
     this.appPages = [
       {
+        title: 'Agendar Cita',
+        url: '/agendar-cita',
+        direct: 'root',
+        icon: 'browsers'
+      },
+      {
         title: 'Home Results',
         url: '/home-results',
         direct: 'root',

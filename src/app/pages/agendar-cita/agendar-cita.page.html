@@ -19,9 +19,94 @@
   <div>
     <ion-slides #theslides pager="false" scrollbar="false" (ionSlideDidChange)="onSlideChange()">
       <ion-slide>
+        <div>
+          <ion-grid fixed>
+            <ion-row>
+              <div class="title" padding-horizontal>
 
+              </div>
+              <h5 style="margin-top: 0 !important;">Selecciona una fecha</h5>
+              <ion-col size="12">
+                <div class="calender-holder">
+                  <ion-calendar [(ngModel)]="fechaActual" [type]="type" [format]="'YYYY-MM-DD'" (change)="SeleccionarFecha($event)"> </ion-calendar>
+                  <!-- <ion-calendar [(ngModel)]="fechaActual" 
+                                (onChange)="SeleccionarFecha($event)">
+                  </ion-calendar> -->
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <div class="sections-holder">
+          <ion-radio-group>
+            <div class="section" *ngFor="let service of listaServicios">
+              <ion-item lines="none">
+                <ion-label>
+                  <h1>{{service.nombre}}&nbsp;&nbsp;</h1>
+                  <h5>${{service.precio}} <span>{{service.tiempoAtencion}} min</span> </h5>
+                  <p>{{service.descripcion}}</p>
+                </ion-label>
+                <ion-radio slot="end" mode="ios" [value]="service.idServicio"
+                  (ionSelect)="obtenerEmpleado(service.idServicio)"></ion-radio>
+              </ion-item>
+            </div>
+          </ion-radio-group>
+        </div>
+      </ion-slide>
+      <ion-slide class="bbr-slide">
+        <ion-radio-group name="auto">
+          <ion-row>
+            <ion-col size="6" *ngFor="let empleado of listaEmpleados">
+              <ion-item lines="none" (click)="ModalColaborador(empleado)">
+                <ion-avatar slot="start">
+                  <img src="assets/img/avatar.jpeg" alt="">
+                </ion-avatar>
+                <ion-label text-wrap>{{empleado.nombre}}</ion-label>
+                <ion-radio [value]="empleado.idEmpleado"></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </ion-slide>
+      <ion-slide>
+        <ion-grid fixed>
+          <ion-row>
+            <div class="title" padding-horizontal>
+            </div>
+            <h5>Selecciona la hora de tu cita!</h5>
+            <ion-col size="12">
+              <div class="hora-selector">
+                <ion-radio-group name="time-slots" [(ngModel)]="horaSeleccionada">
+                  <ion-row>
+                    <ion-col size="4" text-center *ngFor="let lista of listaHorasDispAux">
+                      <ion-item lines="none" text-center>
+                        <ion-label>{{lista.hora | date:'shortTime'}}</ion-label>
+                        <ion-radio [value]="lista.hora"></ion-radio>
+                      </ion-item>
+                    </ion-col>                 
+                  </ion-row>
+                </ion-radio-group>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-slide>
     </ion-slides>
   </div>
 
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div class="total-holder">
+      <ion-row>
+        <ion-col size="5" padding-horizontal>
+          <ion-button expand="block" shape="round"  (click)="checkIsend()">
+              {{buttonText}}
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-toolbar>
+</ion-footer>

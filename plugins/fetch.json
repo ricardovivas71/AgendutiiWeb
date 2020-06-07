@@ -1,0 +1,10 @@
+{
+  "cordova-plugin-admob-free": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-admob-free"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

@@ -4,17 +4,30 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AgendarCitaPageRoutingModule } from './agendar-cita-routing.module';
-
 import { AgendarCitaPage } from './agendar-cita.page';
+import { Routes, RouterModule } from '@angular/router';
+import { CalendarModule } from 'ion2-calendar';
+import { AdMobFree } from '@ionic-native/admob-free/ngx';
+import { ConfirmacionPage } from './confirmacion/confirmacion.page';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    component: AgendarCitaPage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AgendarCitaPageRoutingModule
+    CalendarModule,
+    RouterModule.forChild(routes),
   ],
-  declarations: [AgendarCitaPage]
+  declarations: [AgendarCitaPage,ConfirmacionPage],
+  providers:[AdMobFree],
+  entryComponents:[ConfirmacionPage]
 })
 export class AgendarCitaPageModule {}
