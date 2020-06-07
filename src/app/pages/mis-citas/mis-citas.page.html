@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button color="tertiary"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+          <ion-text color="light">
+              Mis Citas
+          </ion-text>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+  <ion-content>
+
+      <ion-grid class="ion-no-padding" fixed>      
+          <div class="ion-no-margin" [@staggerIn]="listaCitas">
+            <!-- # -->
+            <ion-item lines="none" class="bg-white" tappable *ngFor="let cita of listaCitas" (click)="AgendarCita(establecimiento)">
+                <ion-thumbnail slot="start">
+                    <img src="assets/icon/ImagenLugar.jpg">
+                    <!-- <ion-icon src="assets/icon/barberia.svg"></ion-icon> -->
+                </ion-thumbnail>
+              <ion-label class="ion-text-wrap" style="text-align: justify">
+                <h2>
+                    <ion-text color="dark"><strong>{{cita.nombreEstablecimiento}}</strong></ion-text>
+                </h2>
+                <p class="text-12x">
+                  <ion-icon name="location-outline"></ion-icon>
+                  <ion-text color="primary">{{cita.direccionEstablecimiento}}</ion-text> ∙ <ion-text color="secondary">{{ property.price }}</ion-text>
+                </p>
+                <p class="text-12x">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <ion-text color="primary">{{cita.fechaCita}}</ion-text>
+                </p>
+                <p class="text-12x">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    <ion-text color="primary">{{cita.servicio}}</ion-text> ∙ ∙ 
+                    <ion-icon name="person-circle-outline"></ion-icon>
+                    <ion-text color="secondary">{{ cita.colaborador }}</ion-text>
+                </p>
+
+                <ion-badge slot="end" color="primary">
+                  <ion-text color="light"><ion-icon name="cash-outline"></ion-icon> $ {{cita.precio}}</ion-text> 
+                </ion-badge>
+    
+                <ion-badge slot="end" color="secondary">
+                  <ion-text color="light"><ion-icon name="alarm-outline"></ion-icon> {{cita.tiempoAtencion}} min</ion-text>
+                </ion-badge>
+
+                <ion-badge slot="end" color="secondary">
+                    <ion-text color="light">{{cita.estado}} min</ion-text>
+                </ion-badge>
+              </ion-label>
+            </ion-item>
+            <!-- # -->
+          </div>
+      
+        </ion-grid>     
+  </ion-content>
+  
+  <!-- <ion-content>
+    <ion-list>
+      <ion-item style="width: 100%;cursor: pointer;" *ngFor="let cita of listaCitas" (click)="AgendarCita(establecimiento)">
+        <ion-avatar slot="start">
+          <ion-icon class="small" src="assets/icon/barberia.svg"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3> {{cita.nombreEstablecimiento}} </h3>
+          <p><ion-text color="dark"><ion-icon name="location-outline"></ion-icon> {{cita.direccionEstablecimiento}}</ion-text></p>
+          <p><ion-text color="dark"><ion-icon name="calendar-outline"></ion-icon> {{cita.fechaCita}}</ion-text></p>
+          <p><ion-text color="dark"><ion-icon name="document-text-outline"></ion-icon> {{cita.servicio}} </ion-text></p>
+          <p><ion-text color="dark"><ion-icon name="person-circle-outline"></ion-icon> {{cita.colaborador}} </ion-text></p>
+          <p><ion-text color="dark" style="padding-right: 20px;"><ion-icon name="cash-outline"></ion-icon> $ {{cita.precio}}</ion-text>
+          <ion-text color="dark"><ion-icon name="alarm-outline"></ion-icon> {{cita.tiempoAtencion}} min</ion-text></p>
+          <ion-badge color="secondary">{{cita.estado}} </ion-badge>
+        </ion-label>
+      </ion-item>
+   </ion-list>
+  </ion-content>
+   -->
