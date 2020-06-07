@@ -38,6 +38,8 @@ const routes: Routes = [
   // { path: '**', redirectTo: '/home-results' },
   { path: 'sitio', loadChildren: () => import('./pages/sitio/sitio.module').then( m => m.SitioPageModule)},
   { path: 'lista-establecimientos', loadChildren: () => import('./pages/lista-establecimientos/lista-establecimientos.module').then( m => m.ListaEstablecimientosPageModule)},
+  { path: 'mis-citas', loadChildren: () => import('./pages/mis-citas/mis-citas.module').then( m => m.MisCitasPageModule)},
+
 
 ];
 
