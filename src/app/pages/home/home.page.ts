@@ -8,7 +8,9 @@ import { BuscarEstablecimientoModel } from 'src/app/models/establecimientos/busc
 import { BarrioModel } from 'src/app/models/home/barrio.model';
 import { HomeService } from 'src/app/providers/home/home.service';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { NavController, MenuController, LoadingController } from '@ionic/angular';
+
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
 
 @Component({
@@ -26,6 +28,8 @@ export class HomePage implements OnInit {
   servicioSeleccionado: TipoServiciosModel;
   habilitarBusqueda:boolean = false;
   constructor(private homeService: HomeService,
+              public navCtrl: NavController,
+              public menuCtrl: MenuController,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private globalesService:VariablesGlobalesService) { }
@@ -36,6 +40,10 @@ export class HomePage implements OnInit {
     this.barrioSeleccionado = JSON.parse(this.activatedRoute.snapshot.paramMap.get('barrioSeleccionado'));
     this.ConsultarDatosIniciales(1);
     this.funcionHabilitarBusqueda();
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
 
   funcionHabilitarBusqueda(){
@@ -70,13 +78,21 @@ export class HomePage implements OnInit {
     });
   }
 
+  editprofile() {
+    this.navCtrl.navigateForward('edit-profile');
+  }
+
+  settings() {
+    this.navCtrl.navigateForward('settings');
+  }
+
   /**
   * Autor: Ricardo Vivas
   * Fecha: 24/Mayo/2020
   * Descripción: Dirige a la pantalla de selecionar Ciudades
   */
   obtenerCiudad() {
-    this.router.navigate(['/sitio',{titulo: 'Buscar ciudades'}]);
+    this.router.navigate(['/sitio',{ titulo: 'Buscar ciudades'}]);
   }
 
   /**

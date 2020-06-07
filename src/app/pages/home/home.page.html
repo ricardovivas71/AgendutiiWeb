@@ -1,10 +1,21 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="primary" class="animated fadeIn">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-menu-button color="tertiary"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Buscar Sitios
+    <ion-title>
+      <ion-text color="light">
+        Buscar Sitios
+      </ion-text>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" shape="round" color="medium" (click)="editprofile()">
+        <ion-icon slot="icon-only" name="contact"></ion-icon>
+      </ion-button>
+      <ion-button size="small" shape="round" color="medium" (click)="settings()">
+        <ion-icon slot="icon-only" name="cog"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -28,7 +39,7 @@
       </ul>
     </ion-row>
     <ion-row>
-      <ion-item style="width: 100%;" button (click)="obtenerCiudad()">
+      <ion-item style="width: 100%;" tappable (click)="obtenerCiudad()">
         <ion-label *ngIf="!ciudadSeleccionada">En qué ciudad estás buscando</ion-label>
         <ion-label *ngIf="ciudadSeleccionada">{{ciudadSeleccionada.nombre}}</ion-label>
         <ion-icon name="arrow-forward-circle-outline"></ion-icon>
@@ -44,9 +55,9 @@
     <br>
     <ion-row>
       <ion-col size="12">
-        <ion-button  expand="full" [disabled]="!habilitarBusqueda" (click)="BuscarSitios()">
-          <ion-icon name="search-outline"></ion-icon>
-          Buscar
+        <ion-button expand="block" color="secondary" (click)="BuscarSitios()">
+            <ion-icon slot="start" color="light" name="search"></ion-icon>
+            <ion-text color="light">Buscar</ion-text>
         </ion-button>
       </ion-col>
     </ion-row>

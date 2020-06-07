@@ -1,0 +1,59 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button color="tertiary"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+          <ion-text color="light">
+              Establecimientos
+          </ion-text>
+      </ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-searchbar (ionInput)="obtenerEstablecimiento($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
+      </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+
+      <ion-grid class="ion-no-padding" fixed> 
+          <div class="ion-no-margin" [@staggerIn]="items">
+            <!-- # -->
+            <ion-item lines="none" class="bg-white" tappable *ngFor="let establecimiento of items" (click)="AgendarCita(establecimiento)">
+              <ion-thumbnail slot="start">
+                  <img src="assets/icon/ImagenLugar.jpg">
+                  <!-- <ion-icon src="assets/icon/barberia.svg"></ion-icon> -->
+              </ion-thumbnail>
+              <ion-label class="ion-text-wrap" style="text-align: justify">
+                  <h2>
+                      <ion-text color="dark"><strong>{{ establecimiento.nombre }}</strong></ion-text>
+                  </h2>
+                  <p class="text-12x">
+                    <ion-text color="primary">{{establecimiento.direccion}}</ion-text>
+                  </p>
+                  <p class="text-10x">
+                      <ion-text color="secondary">Almacenamiento que presta servicios de belleza con excelente calidad y manjeando todos los protocolo de bioseguridad</ion-text>
+                      <!-- <ion-text color="primary">{{establecimiento.descripcion}}</ion-text> ∙ <ion-text color="secondary">{{ property.price }}</ion-text> -->
+                  </p> 
+                </ion-label>
+            </ion-item>
+            <!-- # -->
+          </div>
+      
+        </ion-grid>
+    </ion-content>
+  
+  <!-- <ion-content fullscreen>
+    <ion-list>
+      <ion-item *ngFor="let establecimiento of items" style="width: 100%;cursor: pointer;" (click)="AgendarCita(establecimiento)">
+        <ion-avatar slot="start">
+          <ion-icon class="small" src="assets/icon/barberia.svg"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3>{{establecimiento.nombre}}</h3>
+          <p>{{establecimiento.direccion}}</p>
+          <p>{{establecimiento.descripcion}}</p>
+        </ion-label>
+      </ion-item>
+   </ion-list>
+  </ion-content> -->
