@@ -15,7 +15,7 @@ export class GestionarEstablecimientoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  consultarLocalizacion = (): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiConsultarLocalizacion, { headers: this.cabecera });
+  consultarLocalizacion = (): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiConsultarCiudades, { headers: this.cabecera });
   consultarTiposServicios = (oObjeto:busquedaDTOModel) : Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiConsultarTiposServicio, { headers: this.cabecera });
   registrarEstablecimiento = (oObjeto:RegistrarEstablecimientoModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiRegistrarEstablecimiento, oObjeto,{ headers: this.cabecera });
 }
