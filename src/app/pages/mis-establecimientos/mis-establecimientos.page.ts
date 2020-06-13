@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
 import { EstablecimientoModel } from 'src/app/models/establecimientos/establecimiento.model';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 import {
   trigger,
@@ -30,9 +30,10 @@ import { MisEstablecimientoModelDto } from 'src/app/models/establecimientos/MisE
 })
 export class MisEstablecimientosPage implements OnInit {
 
-  listaEstablecimientos: EstablecimientoModel[] = [];
+  listaEstablecimientos: MisEstablecimientoModel[] = [];
   items: any;
-  constructor(private gestionarEstService: GestionarEstablecimientoService) { }
+  constructor(private gestionarEstService: GestionarEstablecimientoService,
+              private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.consultarMisEstablecimientos();
@@ -43,7 +44,22 @@ export class MisEstablecimientosPage implements OnInit {
     let misEstablecimientos = new MisEstablecimientoModelDto(1);
     this.gestionarEstService.consultarMisEstablecimientos(misEstablecimientos).subscribe(resultado =>{
       if(resultado.codigo == 1){
-        this.listaEstablecimientos = resultado.respuesta as EstablecimientoModel[];
+        resultado.respuesta.forEach(element => {
+          let misEstablecimientos = new MisEstablecimientoModel();
+          misEstablecimientos.idEstablecimiento = element.idEstablecimiento;
+          misEstablecimientos.idCategoriaEst = element.idCategoriaEst;
+          misEstablecimientos.nombreCategoria = element.nombreCategoria;
+          misEstablecimientos.nombre = element.nombre;
+          misEstablecimientos.direccion = element.direccion;
+          misEstablecimientos.domicilios = element.domicilios;
+          misEstablecimientos.imagen = this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen);
+          misEstablecimientos.barrio = element.barrio;
+          misEstablecimientos.descripcion = element.descripcion;
+          this.listaEstablecimientos.push(misEstablecimientos);
+        });
+
+
+        //this.listaEstablecimientos = resultado.respuesta as EstablecimientoModel[];
         this.inicializarLista();
         console.log("Resultado establecimientos",this.listaEstablecimientos);
       }else{

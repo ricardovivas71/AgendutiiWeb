@@ -42,7 +42,7 @@
         <sup *ngIf="property.period === 'month'">/month</sup>
       </ion-badge> -->
 
-      <img src="assets/img/avatar.jpeg" (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded" />
+      <img [src]="establecimientos.imagen" (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded" />
       <ion-spinner [ngClass]="{'center':true}" *ngIf="!loaded"></ion-spinner>
 
       <ion-card-header>

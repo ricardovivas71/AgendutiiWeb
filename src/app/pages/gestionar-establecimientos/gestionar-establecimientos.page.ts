@@ -112,7 +112,7 @@ export class GestionarEstablecimientosPage implements OnInit {
       1,
       5,
       parseInt(this.formularioRegistro.get('capacidad').value),
-      ""
+      this.formularioRegistro.get('imagen').value
     );
     console.log(oModelRegistrar,"MODELO REGISTRAR");
     // this.router.navigate(['/mis-establecimientos']);
