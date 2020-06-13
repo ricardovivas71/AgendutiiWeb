@@ -40,6 +40,8 @@ const routes: Routes = [
   { path: 'lista-establecimientos', loadChildren: () => import('./pages/lista-establecimientos/lista-establecimientos.module').then( m => m.ListaEstablecimientosPageModule)},
   { path: 'mis-citas', loadChildren: () => import('./pages/mis-citas/mis-citas.module').then( m => m.MisCitasPageModule)},
   {path: 'gestionar-establecimientos',loadChildren: () => import('./pages/gestionar-establecimientos/gestionar-establecimientos.module').then( m => m.GestionarEstablecimientosPageModule)},
+  { path: 'mis-establecimientos', loadChildren: () => import('./pages/mis-establecimientos/mis-establecimientos.module').then( m => m.MisEstablecimientosPageModule)},
+
 
 ];
 

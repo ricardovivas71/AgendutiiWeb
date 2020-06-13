@@ -7,6 +7,8 @@ import { TipoServiciosModel } from 'src/app/models/home/tipoServicios.model';
 import { RegistrarEstablecimientoModel } from 'src/app/models/establecimientos/registrarEstablecimientoDTO.model';
 import { ToastController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+
 
 @Component({
   selector: 'app-gestionar-establecimientos',
@@ -23,7 +25,8 @@ export class GestionarEstablecimientosPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private gestionarEstService: GestionarEstablecimientoService,
     public toastController: ToastController,
-    private camera: Camera) { }
+    private camera: Camera,
+    private router: Router,) { }
 
 
   ngOnInit() {
@@ -111,15 +114,18 @@ export class GestionarEstablecimientosPage implements OnInit {
       parseInt(this.formularioRegistro.get('capacidad').value),
       ""
     );
-    console.log(oModelRegistrar, "MODELO REGISTRAR");
-    this.gestionarEstService.registrarEstablecimiento(oModelRegistrar).subscribe(async resultado => {
-      if (resultado.codigo == 1) {
+    console.log(oModelRegistrar,"MODELO REGISTRAR");
+    // this.router.navigate(['/mis-establecimientos']);
+    this.gestionarEstService.registrarEstablecimiento(oModelRegistrar).subscribe(async resultado =>{
+      if(resultado.codigo == 1){
         const toast = await this.toastController.create({
           message: 'Establecimiento registrado con exito',
           duration: 2000
         });
         toast.present();
-      } else {
+        console.log("ID ESTABLECIMIENTO..",resultado.respuesta)
+        this.router.navigate(['/mis-establecimientos']);
+      }else{
         const toast = await this.toastController.create({
           message: 'Error registrando el establecimiento',
           duration: 2000
