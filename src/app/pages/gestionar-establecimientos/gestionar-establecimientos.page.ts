@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
 import { LocalizacionModel } from 'src/app/models/home/localizacion.model';
@@ -6,7 +6,9 @@ import { busquedaDTOModel } from 'src/app/models/home/busquedaDTO.model';
 import { TipoServiciosModel } from 'src/app/models/home/tipoServicios.model';
 import { RegistrarEstablecimientoModel } from 'src/app/models/establecimientos/registrarEstablecimientoDTO.model';
 import { ToastController } from '@ionic/angular';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
+
 
 @Component({
   selector: 'app-gestionar-establecimientos',
@@ -18,54 +20,88 @@ export class GestionarEstablecimientosPage implements OnInit {
   formularioRegistro: FormGroup;
   listaCiudades: LocalizacionModel[] = [];
   listaTipoEstablecimiento: TipoServiciosModel[] = [];
+  @ViewChild('fileInput', { static: false }) fileInput;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router,
-              private gestionarEstService: GestionarEstablecimientoService,
-              public toastController: ToastController,) { }
+    private gestionarEstService: GestionarEstablecimientoService,
+    public toastController: ToastController,
+    private camera: Camera,
+    private router: Router,) { }
+
 
   ngOnInit() {
 
     this.obtenerCiudades();
     this.obtenerTipoEstablecimientos();
     this.formularioRegistro = this.formBuilder.group({
-      nombre:['',[Validators.required, Validators.maxLength(50)]],
-      ciudad: ['',[Validators.required, Validators.maxLength(50)]],
-      direccion: ['',[Validators.required, Validators.maxLength(50)]],
-      barrio: ['',[Validators.required, Validators.maxLength(50)]],
-      tipoEstablecimiento: ['',[Validators.required, Validators.maxLength(50)]],
-      capacidad: ['',[Validators.required, Validators.maxLength(50)]],
-      descripcion: ['',[Validators.required, Validators.maxLength(50)]],
-      imagen: ['',[Validators.required]]
+      nombre: ['', [Validators.required, Validators.maxLength(50)]],
+      ciudad: ['', [Validators.required, Validators.maxLength(50)]],
+      direccion: ['', [Validators.required, Validators.maxLength(50)]],
+      barrio: ['', [Validators.required, Validators.maxLength(50)]],
+      tipoEstablecimiento: ['', [Validators.required, Validators.maxLength(50)]],
+      capacidad: ['', [Validators.required, Validators.maxLength(50)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(50)]],
+      imagen: ['', [Validators.required]]
     });
 
   }
 
-  obtenerCiudades(){
+  getPicture() {
+    if (Camera['installed']()) {
+      this.camera.getPicture({
+        destinationType: this.camera.DestinationType.DATA_URL,
+        targetWidth: 96,
+        targetHeight: 96
+      }).then((data) => {
+        this.formularioRegistro.patchValue({ 'imagen': data });
+      }, (err) => {
+        alert('Unable to take photo');
+      })
+    } else {
+      this.fileInput.nativeElement.click();
+    }
+  }
+
+  processWebImage(event) {
+    let reader = new FileReader();
+    reader.onload = (readerEvent) => {
+
+      let imageData = (readerEvent.target as any).result;
+      this.formularioRegistro.patchValue({ 'imagen': imageData });
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+  getProfileImageStyle() {
+    return 'url(' + this.formularioRegistro.controls['imagen'].value + ')'
+  }
+
+  obtenerCiudades() {
     this.gestionarEstService.consultarLocalizacion().subscribe(resultado => {
-      console.log("RESULTADO CIUDADES",resultado);
+      console.log("RESULTADO CIUDADES", resultado);
       if (resultado.codigo == 1) {
         this.listaCiudades = resultado.respuesta as LocalizacionModel[];
       } else {
         console.log("ERROR LISTA CIU", resultado);
       }
-    });    
+    });
   }
 
-  obtenerTipoEstablecimientos(){
+  obtenerTipoEstablecimientos() {
     let oBusqueda = new busquedaDTOModel(1);
-    this.gestionarEstService.consultarTiposServicios(oBusqueda).subscribe(resultado =>{
-      console.log("RESULTADO INICIAL",resultado);
-      if(resultado.codigo == 1){
+    this.gestionarEstService.consultarTiposServicios(oBusqueda).subscribe(resultado => {
+      console.log("RESULTADO INICIAL", resultado);
+      if (resultado.codigo == 1) {
         this.listaTipoEstablecimiento = resultado.respuesta as TipoServiciosModel[];
-      }else{
+      } else {
         console.log("ERROR DATOS INICIALES", resultado);
       }
     });
   }
 
-  RegistrarEstablecimiento(){
-    console.log("Registro model",this.formularioRegistro.value);
+  RegistrarEstablecimiento() {
+    console.log("Registro model", this.formularioRegistro.value);
     let oModelRegistrar: RegistrarEstablecimientoModel = new RegistrarEstablecimientoModel(
       this.formularioRegistro.get('nombre').value,
       this.formularioRegistro.get('direccion').value,
