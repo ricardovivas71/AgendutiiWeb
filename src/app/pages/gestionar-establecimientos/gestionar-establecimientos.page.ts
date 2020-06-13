@@ -5,6 +5,7 @@ import { LocalizacionModel } from 'src/app/models/home/localizacion.model';
 import { busquedaDTOModel } from 'src/app/models/home/busquedaDTO.model';
 import { TipoServiciosModel } from 'src/app/models/home/tipoServicios.model';
 import { RegistrarEstablecimientoModel } from 'src/app/models/establecimientos/registrarEstablecimientoDTO.model';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-gestionar-establecimientos',
@@ -18,7 +19,8 @@ export class GestionarEstablecimientosPage implements OnInit {
   listaTipoEstablecimiento: TipoServiciosModel[] = [];
 
   constructor(private formBuilder: FormBuilder,
-              private gestionarEstService: GestionarEstablecimientoService) { }
+              private gestionarEstService: GestionarEstablecimientoService,
+              public toastController: ToastController,) { }
 
   ngOnInit() {
 
@@ -75,8 +77,20 @@ export class GestionarEstablecimientosPage implements OnInit {
       ""
     );
     console.log(oModelRegistrar,"MODELO REGISTRAR");
-    this.gestionarEstService.registrarEstablecimiento(oModelRegistrar).subscribe(respuesta =>{
-      
+    this.gestionarEstService.registrarEstablecimiento(oModelRegistrar).subscribe(async resultado =>{
+      if(resultado.codigo == 1){
+        const toast = await this.toastController.create({
+          message: 'Establecimiento registrado con exito',
+          duration: 2000
+        });
+        toast.present();
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Error registrando el establecimiento',
+          duration: 2000
+        });
+        toast.present();
+      }
     });
   }
 
