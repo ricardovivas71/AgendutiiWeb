@@ -5,22 +5,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { GestionarEstablecimientosPage } from './gestionar-establecimientos.page';
 import { Routes, RouterModule } from '@angular/router';
+import { Camera} from '@ionic-native/camera/ngx';
+
 
 const routes: Routes = [
   {
     path: '',
     component: GestionarEstablecimientosPage
-}
+  }
 ];
 
 @NgModule({
-imports: [
-CommonModule,
-FormsModule,
-ReactiveFormsModule,
-IonicModule,
-RouterModule.forChild(routes),
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
   ],
-  declarations: [GestionarEstablecimientosPage]
+  declarations: [GestionarEstablecimientosPage],
+  providers:[
+    Camera
+  ]
 })
-export class GestionarEstablecimientosPageModule {}
+export class GestionarEstablecimientosPageModule { }

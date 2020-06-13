@@ -10,24 +10,35 @@
 <ion-content class="profile">
   <ion-card class="ion-no-margin">
     <ion-card-content class="bg-profile">
-      <!-- <img src="assets/img/avatar.jpeg"> -->
-      <div class="avatar">
-        <ion-icon class="bigger" ios="ios-camera" md="md-camera"></ion-icon>
+
+      <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]"
+        (change)="processWebImage($event)" />
+      <div class="profile-image-wrapper" (click)="getPicture()">
+        <div class="profile-image-placeholder" *ngIf="!formularioRegistro.controls['imagen'].value">
+          <ion-icon name="ios-camera-outline" class="ios-camera-outline" md="ios-camera-outline"
+            style="color: white !important"></ion-icon>
+          <div>
+          </div>
+        </div>
+        <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()"
+          *ngIf="formularioRegistro.controls['imagen'].value">
+        </div>
       </div>
+
     </ion-card-content>
 
 
     <form [formGroup]="formularioRegistro" (ngSubmit)="RegistrarEstablecimiento()">
-      
+
       <ion-grid fixed class="ion-no-padding">
         <ion-row>
           <ion-col size="12" class="ion-padding">
-  
+
             <ion-list class="ion-margin-bottom">
               <ion-list-header color="light">
                 <ion-label class="fw700">Datos del establecimiento</ion-label>
               </ion-list-header>
-  
+
               <ion-item>
                 <ion-label color="dark" position="stacked">Nombre Establecimiento:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Peluqueria Hugo's" formControlName="nombre"></ion-input>
@@ -36,15 +47,17 @@
               <ion-item>
                 <ion-label color="dark">Ciudad:</ion-label>
                 <ion-select formControlName="ciudad">
-                  <ion-select-option *ngFor="let ciudad of listaCiudades" [value]="ciudad.idLocalizacion">{{ciudad.nombre}}</ion-select-option>
+                  <ion-select-option *ngFor="let ciudad of listaCiudades" [value]="ciudad.idLocalizacion">
+                    {{ciudad.nombre}}</ion-select-option>
                 </ion-select>
               </ion-item>
-      
+
               <ion-item>
                 <ion-label color="dark" position="stacked">Dirección:</ion-label>
-                <ion-input inputmode="text" placeholder="Ejm: Carrera 1b # 18 65" formControlName="direccion"></ion-input>
+                <ion-input inputmode="text" placeholder="Ejm: Carrera 1b # 18 65" formControlName="direccion">
+                </ion-input>
               </ion-item>
-      
+
               <ion-item>
                 <ion-label color="dark" position="stacked">Barrio:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Barrio Chico" formControlName="barrio"></ion-input>
@@ -53,10 +66,11 @@
               <ion-item>
                 <ion-label color="dark">Tipo de servicio:</ion-label>
                 <ion-select formControlName="tipoEstablecimiento">
-                  <ion-select-option *ngFor="let servicio of listaTipoEstablecimiento" [value]="servicio.idCategoriaEst">{{servicio.nombre}}</ion-select-option>
+                  <ion-select-option *ngFor="let servicio of listaTipoEstablecimiento"
+                    [value]="servicio.idCategoriaEst">{{servicio.nombre}}</ion-select-option>
                 </ion-select>
               </ion-item>
-          
+
               <ion-item>
                 <ion-label color="dark" position="stacked">Capacidad:</ion-label>
                 <ion-input inputmode="number" placeholder="Ejm: 20 personas" formControlName="capacidad"></ion-input>
@@ -64,21 +78,23 @@
 
               <ion-item>
                 <ion-label color="dark" position="stacked">Descripción:</ion-label>
-                <ion-textarea placeholder="Ejm: Brindamos servicio de asesoría de imagen" formControlName="descripcion"></ion-textarea>
+                <ion-textarea placeholder="Ejm: Brindamos servicio de asesoría de imagen" formControlName="descripcion">
+                </ion-textarea>
               </ion-item>
-                        
+
             </ion-list>
 
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" type="submit">Registrar Establecimiento</ion-button>
+      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" type="submit">Registrar Establecimiento
+      </ion-button>
 
     </form>
 
   </ion-card>
-<!--   
+  <!--   
   <div class="ion-padding">
     <ion-text color="dark" class="ion-no-margin">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum odio placeat incidunt nesciunt atque ratione quisquam, fugit
