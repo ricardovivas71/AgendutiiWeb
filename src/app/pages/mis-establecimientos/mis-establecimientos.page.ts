@@ -13,6 +13,7 @@ import {
 } from '@angular/animations';
 import { MisEstablecimientoModel } from 'src/app/models/establecimientos/misEstablecimientos.model';
 import { MisEstablecimientoModelDto } from 'src/app/models/establecimientos/MisEstablecimientosDTO.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class MisEstablecimientosPage implements OnInit {
   listaEstablecimientos: MisEstablecimientoModel[] = [];
   items: any;
   constructor(private gestionarEstService: GestionarEstablecimientoService,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer,
+              private router: Router,) { }
 
   ngOnInit() {
     this.consultarMisEstablecimientos();
@@ -88,6 +90,10 @@ export class MisEstablecimientosPage implements OnInit {
 
   onCancel() {
     this.inicializarLista();
+  }
+
+  registrarServicio(establecimiento){
+    this.router.navigate(['/servicios-establecimiento',{ idEstablecimiento: establecimiento.idEstablecimiento}]);
   }
 
 }

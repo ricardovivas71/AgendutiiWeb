@@ -70,15 +70,15 @@
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
             <ion-fab-list side="top">
-              <ion-label style="font-size: 10px; background-color: blue; color: white">Colaborador</ion-label>
+              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Colaborador</ion-label>
               <ion-fab-button><ion-icon name="person-add"></ion-icon></ion-fab-button>
-              <ion-label style="font-size: 10px; background-color: blue; color: white">Sevicio</ion-label>
-              <ion-fab-button><ion-icon name="create"></ion-icon></ion-fab-button>
-              <ion-label style="font-size: 10px; background-color: blue; color: white">Ajuste</ion-label>
+              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Servicio</ion-label>
+              <ion-fab-button (click)="registrarServicio(establecimientos)"><ion-icon name="create"></ion-icon></ion-fab-button>
+              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Ajuste</ion-label>
               <ion-fab-button><ion-icon name="hammer"></ion-icon></ion-fab-button>
             </ion-fab-list>
           </ion-fab>
-
+          <br>
           <ion-card-subtitle>       
             <ion-text color="primary">{{establecimientos.nombre}}</ion-text>
           </ion-card-subtitle>

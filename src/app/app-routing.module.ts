@@ -41,7 +41,8 @@ const routes: Routes = [
   { path: 'mis-citas', loadChildren: () => import('./pages/mis-citas/mis-citas.module').then( m => m.MisCitasPageModule)},
   {path: 'gestionar-establecimientos',loadChildren: () => import('./pages/gestionar-establecimientos/gestionar-establecimientos.module').then( m => m.GestionarEstablecimientosPageModule)},
   { path: 'mis-establecimientos', loadChildren: () => import('./pages/mis-establecimientos/mis-establecimientos.module').then( m => m.MisEstablecimientosPageModule)},
-
+  {path: 'servicios-establecimiento',loadChildren: () => import('./pages/servicios-establecimiento/servicios-establecimiento.module').then( m => m.ServiciosEstablecimientoPageModule)},
+  {path: 'registrar-servicio',loadChildren: () => import('./pages/registrar-servicio/registrar-servicio.module').then( m => m.RegistrarServicioPageModule)},
 
 ];
 

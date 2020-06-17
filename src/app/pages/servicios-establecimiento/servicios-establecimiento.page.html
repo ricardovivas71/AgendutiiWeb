@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Servicios Establecimiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list class="ion-no-padding" [@staggerIn]="listServicios" *ngIf="listServicios.length > 0">
+
+    <ion-item class="bg-white" lines="none" *ngFor="let servicio of listServicios" tappable>
+      <ion-icon slot="start" name="list-box" color="primary"></ion-icon>
+      <ion-label>
+        <h2>
+          <ion-text color="dark"><strong>{{servicio.nombre}}</strong></ion-text>
+        </h2>
+        <p class="text-12x">
+          <ion-text color="secondary">{{servicio.descripcion}}</ion-text>
+        </p>
+        <ion-badge color="success">{{servicio.tiempoAtencion}} min</ion-badge>
+      </ion-label>
+      <ion-badge slot="end">{{servicio.precio | currency}}</ion-badge>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list class="ion-no-padding" *ngIf="listServicios.length == 0">
+    <ion-item>
+      <ion-label>No existen servicios registrados</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="danger" (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
+
