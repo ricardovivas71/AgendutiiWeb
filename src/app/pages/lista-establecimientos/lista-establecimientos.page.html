@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar color="primary">
       <ion-buttons slot="start">
-        <ion-back-button color="tertiary"></ion-back-button>
+        <ion-back-button text="Atrás" color="tertiary"></ion-back-button>
       </ion-buttons>
       <ion-title>
           <ion-text color="light">
@@ -10,7 +10,7 @@
       </ion-title>
     </ion-toolbar>
     <ion-toolbar color="dark">
-        <ion-searchbar (ionInput)="obtenerEstablecimiento($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
+        <ion-searchbar placeholder="Buscar" (ionInput)="obtenerEstablecimiento($event)" (ionCancel)="onCancel($event)"></ion-searchbar>
       </ion-toolbar>
   </ion-header>
   
