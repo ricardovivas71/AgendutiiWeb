@@ -1,9 +1,13 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button text="Atrás" color="tertiary"></ion-back-button>
     </ion-buttons>
-    <ion-title>Gestionar Servicios</ion-title>
+    <ion-title>
+      <ion-text color="light">
+          Gestionar Servicios
+      </ion-text>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,24 +26,27 @@
               </ion-list-header>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Nombre:</ion-label>
+                <ion-label color="dark" position="stacked">Nombre *:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Corte para dama" formControlName="nombre"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">descripción:</ion-label>
+                <ion-label color="dark" position="stacked">descripción * :</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Corte con diferentes estilos" formControlName="descripcion"></ion-input>
               </ion-item>
 
+              <!-- <ion-item>
+                  <ion-range min="2000" max="500000" step="1000" formControlName="precio" pin color="secondary">
+                    <ion-icon slot="start" size="small" name="contrast"></ion-icon>
+                    <ion-icon slot="end" name="contrast"></ion-icon>
+                  </ion-range>
+                </ion-item> -->
               <ion-item>
-                <ion-range min="2000" max="500000" step="1000" formControlName="precio">
-                  <ion-icon size="small" slot="start" name="sunny"></ion-icon>
-                  <ion-icon slot="end" name="sunny"></ion-icon>
-                </ion-range>
+                  <ion-label color="dark" position="stacked">Precio *</ion-label>
+                  <ion-input required type="number" formControlName="precio" placeholder="min 2000 - max 500.000"></ion-input>
               </ion-item>
-
               <ion-item>
-                <ion-label color="dark">Tiempo atención:</ion-label>
+                <ion-label color="dark">Tiempo atención *:</ion-label>
                 <ion-select formControlName="tiempo">
                   <ion-select-option *ngFor="let lstTiempo of listaTiempo" [value]="lstTiempo.valor">
                     {{lstTiempo.tiempo}}</ion-select-option>
@@ -52,7 +59,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" type="submit">Registrar Servicio
+      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" type="submit" [disabled]="!formularioRegistro.valid" >Registrar Servicio
       </ion-button>
 
     </form>

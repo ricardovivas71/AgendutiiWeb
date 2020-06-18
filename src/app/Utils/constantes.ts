@@ -17,5 +17,6 @@ export class Constantes{
     public static readonly ApiConsultarCiudades: string = "/api/agendamiento/busqueda/ciudades";
     public static readonly ApiConsultarMisEstablecimiento: string = "/api/agendamiento/establecimiento/misEstablecimientos";
     public static readonly ApiConsultarServiciosEstablecimiento:string = "/api/agendamiento/busqueda/servicios";
-    
+    public static readonly ApiRegistrarServicio = "/api/agendamiento/establecimiento/nuevoServicio";
+    public static readonly ApiEliminarServicio = "/api/agendamiento/establecimiento/eliminarServicio";
 }

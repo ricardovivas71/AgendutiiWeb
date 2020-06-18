@@ -7,7 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MisEstablecimientosPage } from './mis-establecimientos.page';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
-import { RegistrarServicioPage } from '../registrar-servicio/registrar-servicio.page';
 
 const routes: Routes = [
   {
