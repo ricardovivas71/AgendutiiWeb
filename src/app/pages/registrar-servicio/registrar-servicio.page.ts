@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TiempoAtencionModel } from 'src/app/models/servicios/tiempoAtencion.model';
 import { RegistrarServicioModel } from 'src/app/models/servicios/registrarServicioDTO.model';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registrar-servicio',
@@ -17,7 +17,8 @@ export class RegistrarServicioPage implements OnInit {
   @Input() idEstablecimiento: number;
   constructor(private formBuilder: FormBuilder,
     private gestionarEstService: GestionarEstablecimientoService,
-    public toastController: ToastController) { }
+    public toastController: ToastController,
+    public modalController: ModalController) { }
 
   ngOnInit() {
     this.llenarTiempoAtencion();
@@ -56,7 +57,7 @@ export class RegistrarServicioPage implements OnInit {
       this.idEstablecimiento
     );
     console.log(oModelRegistrar,"MODELO REGISTRAR");
-    // this.router.navigate(['/mis-establecimientos']);
+    //this.router.navigate(['/mis-establecimientos']);
     this.gestionarEstService.registrarServicio(oModelRegistrar).subscribe(async resultado =>{
       if(resultado.codigo == 1){
         const toast = await this.toastController.create({
@@ -64,6 +65,9 @@ export class RegistrarServicioPage implements OnInit {
           duration: 2000
         });
         toast.present();
+        this.modalController.dismiss({
+          'dismissed': true
+        });
         console.log("ID Servicio..",resultado.respuesta)
       }else{
         const toast = await this.toastController.create({

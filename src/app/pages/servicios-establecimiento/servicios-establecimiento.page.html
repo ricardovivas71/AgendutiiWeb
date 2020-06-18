@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
         <ion-text color="light">
-            Servicios Establecimiento
+            Servicios
         </ion-text>
     </ion-title>
   </ion-toolbar>
@@ -15,22 +15,29 @@
 <ion-content>
 
   <ion-list class="ion-no-padding" [@staggerIn]="listServicios" *ngIf="listServicios.length > 0">
-
-    <ion-item class="bg-white" lines="none" *ngFor="let servicio of listServicios" tappable>
-      <ion-icon slot="start" name="list-box" color="primary"></ion-icon>
-      <ion-label>
-        <h2>
-          <ion-text color="dark"><strong>{{servicio.nombre}}</strong></ion-text>
-        </h2>
-        <p class="text-12x">
-          <ion-text color="secondary">{{servicio.descripcion}}</ion-text>
-        </p>
-        <ion-badge color="success">{{servicio.tiempoAtencion}} min</ion-badge>
-      </ion-label>
-      <ion-badge slot="end">{{servicio.precio | currency}}</ion-badge>
-    </ion-item>
-
+    <ion-item-sliding *ngFor="let servicio of listServicios" #slidingList>
+      <ion-item class="bg-white" lines="none" tappable>
+        <ion-icon slot="start" name="list-box" color="primary"></ion-icon>
+        <ion-label>
+          <h2>
+            <ion-text color="dark"><strong>{{servicio.nombre}}</strong></ion-text>
+          </h2>
+          <p class="text-12x">
+            <ion-text color="secondary">{{servicio.descripcion}}</ion-text>
+          </p>
+          <ion-badge color="success">{{servicio.tiempoAtencion}} min</ion-badge>
+        </ion-label>
+        <ion-badge slot="end">{{servicio.precio | currency}}</ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminarServicio(servicio)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
+ 
+
 
   <ion-list class="ion-no-padding" *ngIf="listServicios.length == 0">
     <ion-item>
