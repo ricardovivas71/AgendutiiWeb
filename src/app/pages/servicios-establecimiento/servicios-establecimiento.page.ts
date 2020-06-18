@@ -53,7 +53,10 @@ export class ServiciosEstablecimientoPage implements OnInit {
   async presentModal() {
     const modal = await this.modalController.create({
       component: RegistrarServicioPage,
-      cssClass: 'my-custom-class'
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'idEstablecimiento': this.idEstablecimiento
+      }
     });
     return await modal.present();
   }

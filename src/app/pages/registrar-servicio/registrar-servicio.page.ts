@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TiempoAtencionModel } from 'src/app/models/servicios/tiempoAtencion.model';
+import { RegistrarServicioModel } from 'src/app/models/servicios/registrarServicioDTO.model';
+import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registrar-servicio',
@@ -11,15 +14,17 @@ export class RegistrarServicioPage implements OnInit {
 
   formularioRegistro: FormGroup;
   listaTiempo: TiempoAtencionModel[] = [];
-
-  constructor(private formBuilder: FormBuilder) { }
+  @Input() idEstablecimiento: number;
+  constructor(private formBuilder: FormBuilder,
+    private gestionarEstService: GestionarEstablecimientoService,
+    public toastController: ToastController) { }
 
   ngOnInit() {
     this.llenarTiempoAtencion();
     this.formularioRegistro = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.maxLength(50)]],
-      descripcion: ['', [Validators.required, Validators.maxLength(200)]],
-      precio: ['', [Validators.required, Validators.maxLength(50)]],
+      nombre: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
+      precio: ['', [Validators.required, Validators.min(2000)]],
       tiempo: ['', [Validators.required]]
     });
   }
@@ -42,6 +47,32 @@ export class RegistrarServicioPage implements OnInit {
 
   RegistrarServicio(){
     console.log("Model servicio",this.formularioRegistro.value);
+
+    let oModelRegistrar: RegistrarServicioModel = new RegistrarServicioModel(
+      this.formularioRegistro.get('nombre').value,
+      this.formularioRegistro.get('descripcion').value,
+      parseInt(this.formularioRegistro.get('precio').value),
+      parseInt(this.formularioRegistro.get('tiempo').value),
+      this.idEstablecimiento
+    );
+    console.log(oModelRegistrar,"MODELO REGISTRAR");
+    // this.router.navigate(['/mis-establecimientos']);
+    this.gestionarEstService.registrarServicio(oModelRegistrar).subscribe(async resultado =>{
+      if(resultado.codigo == 1){
+        const toast = await this.toastController.create({
+          message: 'Servicio registrado con éxito',
+          duration: 2000
+        });
+        toast.present();
+        console.log("ID Servicio..",resultado.respuesta)
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Error registrando el servicio',
+          duration: 2000
+        });
+        toast.present();
+      }
+    });
   }
 
 }
