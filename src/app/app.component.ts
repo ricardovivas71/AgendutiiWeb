@@ -46,7 +46,7 @@ export class AppComponent {
       {
         title: 'Mis Establecimientos',
         url: '/mis-establecimientos',
-        direct: 'root',
+        direct: 'forward',
         icon: 'home'
 
       },
