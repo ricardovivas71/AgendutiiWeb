@@ -26,6 +26,11 @@
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('nombre').touched && onRegisterForm.get('nombre').hasError('maxLength')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.length' | translate }}
+        </ion-text>
+      </p>
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
@@ -39,6 +44,12 @@
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('apellido').touched && onRegisterForm.get('apellido').hasError('maxLength')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.length' | translate }}
+        </ion-text>
+      </p>
+
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
@@ -52,6 +63,13 @@
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('email').touched && onRegisterForm.get('email').hasError('maxLength')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.length' | translate }}
+        </ion-text>
+      </p>
+
+      
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
@@ -65,32 +83,56 @@
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('telefono').touched && onRegisterForm.get('telefono').hasError('maxLength')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.length' | translate }}
+        </ion-text>
+      </p>
+      <p class="text08" *ngIf="onRegisterForm.get('telefono').touched && onRegisterForm.get('telefono').hasError('pattern')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.numero' | translate }}
+        </ion-text>
+      </p>
+
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           {{ 'app.label.password' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="password" formControlName="contrasena"></ion-input>
+        <ion-input color="secondary" type="password" formControlName="contrasena" (keyup.enter)="validaContrasena()"></ion-input>
       </ion-item>
       <p color="warning" class="text08" *ngIf="onRegisterForm.get('contrasena').touched && onRegisterForm.get('contrasena').hasError('required')">
         <ion-text color="warning">
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('contrasena').touched && onRegisterForm.get('contrasena').hasError('maxLength')">
+        <ion-text color="warning">
+          {{ 'app.label.errors.length' | translate }}
+        </ion-text>
+      </p>
+
 
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           {{ 'app.label.repassword' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="password" formControlName="reContrasena"></ion-input>
+        <ion-input color="secondary" type="password" formControlName="reContrasena" (keyup.enter)="validaContrasena()"></ion-input>
       </ion-item>
       <p color="warning" class="text08" *ngIf="onRegisterForm.get('reContrasena').touched && onRegisterForm.get('reContrasena').hasError('required')">
-        <ion-text color="warning">
-          {{ 'app.label.errors.field' | translate }}
-        </ion-text>
+        <ion-text color="warning">{{ 'app.label.errors.field' | translate }}</ion-text>
       </p>
+      <p class="text08" *ngIf="onRegisterForm.get('reContrasena').touched && onRegisterForm.get('reContrasena').hasError('maxLength')">
+        <ion-text color="warning">{{ 'app.label.errors.length' | translate }}</ion-text>
+      </p>
+      <p class="text08" *ngIf="onRegisterForm.get('reContrasena').touched && !desigualdad">
+        <ion-text color="warning">{{ 'app.label.errors.contrasena' | translate }}</ion-text>
+      </p>
+
+
+
 
       <ion-item>
         <ion-label class="label" color="primary"> {{ 'app.label.tipoUsuario' | translate }} </ion-label>
@@ -142,6 +184,10 @@
         </ion-text>
       </span>
     </div>
+
+
+
+
 
   </div>
 </ion-content>

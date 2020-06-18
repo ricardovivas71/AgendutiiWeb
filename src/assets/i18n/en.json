@@ -57,6 +57,11 @@
     "app.label.selectlocal": "Select Local",
 
     "app.label.errors.field": "El campo es requerido",
+    "app.label.errors.length": "El campo supera la longitud",
+    "app.label.errors.contrasena": "Las contraseñas deben coincidir",
+    "app.label.errors.numero": "Numero de telefono erroneo",
+    "app.label.errors.email": "Email es erroneo",
+    "app.label.errors.contrasenaPattern": "Contraseña poco segura",
 
     "app.pages.extras.title.header": "Extras pages",
     "app.pages.extras.profileone.title.header": "Profile One",

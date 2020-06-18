@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, MaxLengthValidator } from '@angular/forms';
 import { NavController, MenuController, LoadingController, ToastController } from '@ionic/angular';
 import { RegistrarUsuarioModel } from 'src/app/models/usuario/RegistrarUsuarioModel';
 import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
@@ -11,6 +11,7 @@ import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
 })
 export class RegisterPage implements OnInit {
   public onRegisterForm: FormGroup;
+  private desigualdad: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -27,28 +28,26 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {
     this.onRegisterForm = this.formBuilder.group({
-      'nombre': [null, Validators.compose([
-        Validators.required
-      ])],
-      'apellido': [null, Validators.compose([
-        Validators.required
-      ])],
-      'email': [null, Validators.compose([
-        Validators.required
-      ])],
-      'telefono': [null, Validators.compose([
-        Validators.required
-      ])],
-      'contrasena': [null, Validators.compose([
-        Validators.required
-      ])],
-      'reContrasena': [null, Validators.compose([
-        Validators.required
-      ])],
-      'tipoUsuario': [null, Validators.compose([
-        Validators.required
-      ])]
+      'nombre': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
+      'apellido': [null, Validators.compose([Validators.required, Validators.maxLength(50)])],
+      'email': [null, Validators.compose([Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.maxLength(50)])],
+      'telefono': [null, Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]{10}$')])],
+      'contrasena': [null, Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'), Validators.maxLength(10)])],
+      'reContrasena': [null, Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}'), Validators.maxLength(10)])],
+      'tipoUsuario': [null, false]
     });
+  }
+
+  /**
+   * Autor: Fabián Orozco
+   * Fecha: 17/June/2020
+   * Descripción: Valida la contraseña digitada
+   */  
+  validaContrasena(){
+    
+
+
+
   }
 
   async signUp() {
