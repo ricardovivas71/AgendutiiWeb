@@ -6,6 +6,7 @@ import { LoginModel } from 'src/app/models/usuario/LoginModel';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit {
     public toastController: ToastController,
     private router: Router,
     public loginUsuario: UsuarioService,
-    private storage: Storage
+    private storage: Storage,
+    private sms: SMS
   ) { }
 
   ionViewWillEnter() {
@@ -51,9 +53,9 @@ export class LoginPage implements OnInit {
       message: this.translate.get('app.pages.login.text.forgot'),
       inputs: [
         {
-          name: 'email',
-          type: 'email',
-          placeholder: this.translate.get('app.label.email')
+          name: 'celular',
+          type: 'tel',
+          placeholder: this.translate.get('app.label.celular')
         }
       ],
       buttons: [
@@ -70,7 +72,7 @@ export class LoginPage implements OnInit {
             const loader = await this.loadingCtrl.create({
               duration: 2000
             });
-
+            this.sms.send('+57 3143863944', 'Hello world!');
             loader.present();
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({

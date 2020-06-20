@@ -19,7 +19,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Services/Providers
 import { TranslateProvider, PropertyService } from './providers';
-
 // Modal Pages
 import { ImagePageModule } from './pages/modal/image/image.module';
 import { SearchFilterPageModule } from './pages/modal/search-filter/search-filter.module';
@@ -32,6 +31,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 
 // Pipes
 import { PipesModule } from './pipes/pipes.module';
+import { SMS } from '@ionic-native/sms/ngx';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -67,6 +67,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   entryComponents: [NotificationsComponent],
   providers: [
     StatusBar,
+    SMS,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     TranslateProvider,
