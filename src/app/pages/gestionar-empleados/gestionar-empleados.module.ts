@@ -7,6 +7,7 @@ import { GestionarEmpleadosPage } from './gestionar-empleados.page';
 import { Routes, RouterModule } from '@angular/router';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
 import { Camera} from '@ionic-native/camera/ngx';
+import { GestionarEmpleadosService } from 'src/app/providers/gestionarEmpleados/gestionar-empleados.service';
 
 const routes: Routes = [
   {
@@ -24,6 +25,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [GestionarEmpleadosPage],
-  providers:[GestionarEstablecimientoService,Camera]
+  providers:[GestionarEstablecimientoService,Camera,GestionarEmpleadosService]
 })
 export class GestionarEmpleadosPageModule {}

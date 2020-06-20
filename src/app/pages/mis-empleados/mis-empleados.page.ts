@@ -33,6 +33,7 @@ export class MisEmpleadosPage implements OnInit {
     private sanitizer: DomSanitizer,) { }
 
   ngOnInit() {
+    this.consultarEmpleados(this.idEstablecimiento);
     this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('idEstablecimiento'));
   }
 
@@ -47,14 +48,14 @@ export class MisEmpleadosPage implements OnInit {
 
     modal.onDidDismiss()
       .then((data) => {
-        this.consultarEmpleados();
+        this.consultarEmpleados(this.idEstablecimiento);
     });
 
     return await modal.present();
   }
 
-  consultarEmpleados(){
-    let oEmpleados = new ConsultarEmpleadosDtoModel(this.idEstablecimiento);
+  consultarEmpleados(idEstablecimiento){
+    let oEmpleados = new ConsultarEmpleadosDtoModel(idEstablecimiento);
     this.empleadosService.consultarEmpleados(oEmpleados).subscribe(async resultado =>{
       if(resultado.codigo == "1"){
         resultado.respuesta.forEach(element => {

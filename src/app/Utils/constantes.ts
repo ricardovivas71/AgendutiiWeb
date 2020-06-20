@@ -19,8 +19,8 @@ export class Constantes{
     public static readonly ApiConsultarServiciosEstablecimiento:string = "/api/agendamiento/busqueda/servicios";
     public static readonly ApiRegistrarServicio = "/api/agendamiento/establecimiento/nuevoServicio";
     public static readonly ApiEliminarServicio = "/api/agendamiento/establecimiento/eliminarServicio";
-    public static readonly ApiConsultarEmpleadosEstab = "api/agendamiento/Empleado/misEmpleados";
-    public static readonly ApiRegistrarEmpleados = "api/agendamiento/Empleado/NuevoEmpleado";
+    public static readonly ApiConsultarEmpleadosEstab = "/api/agendamiento/Empleado/misEmpleados";
+    public static readonly ApiRegistrarEmpleados = "/api/agendamiento/Empleado/NuevoEmpleado";
     public static readonly ApiLoginUsuario = "/api/agendamiento/Usuario/login";
 
 }
