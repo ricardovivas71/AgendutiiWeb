@@ -1,0 +1,98 @@
+<ion-content class="profile">
+
+  <ion-card class="ion-no-margin dotted">
+    <ion-card-content class="bg-profile">
+
+      <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]"
+        (change)="processWebImage($event)" />
+      <div class="profile-image-wrapper" (click)="getPicture()">
+        <div class="profile-image-placeholder" *ngIf="!formularioRegistro.controls['imagen'].value">
+          <ion-icon name="ios-camera-outline" class="ios-camera-outline" md="ios-camera-outline"
+            style="color: white !important"></ion-icon>
+          <div>
+          </div>
+        </div>
+        <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()"
+          *ngIf="formularioRegistro.controls['imagen'].value">
+        </div>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-no-margin bg-white dotted">
+    <form [formGroup]="formularioRegistro" (ngSubmit)="RegistrarEmpleado()">
+
+      <ion-grid fixed class="ion-no-padding">
+        <ion-row>
+          <ion-col size="12" class="ion-padding">
+
+            <ion-list class="ion-margin-bottom">
+              <ion-list-header color="light">
+                <ion-label class="fw700">Datos del Empleado</ion-label>
+              </ion-list-header>
+
+              <ion-item>
+                <ion-label color="dark" position="stacked">Nombres:</ion-label>
+                <ion-input inputmode="text" placeholder="Ejm: Pepito" formControlName="nombres"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="dark" position="stacked">Apellidos:</ion-label>
+                <ion-input inputmode="text" placeholder="Ejm: Perez" formControlName="apellidos"></ion-input>
+              </ion-item>
+
+              <ion-list>
+                <ion-list-header>Que días trabaja el empleado</ion-list-header>
+                  <ion-item>
+                    <ion-label>Lunes</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="lunes"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Martes</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="martes"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Miercoles</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="miercoles"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Jueves</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="jueves"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Viernes</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="viernes"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Sabado</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="sabado"></ion-checkbox>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>Domingo</ion-label>
+                    <ion-checkbox color="primary" checked slot="start" formControlName="domingo"></ion-checkbox>
+                  </ion-item>                
+                </ion-list>
+
+              <ion-item>
+                <ion-label color="dark">Tipo de servicio:</ion-label>
+                <ion-select multiple="true" formControlName="servicio">
+                  <ion-select-option *ngFor="let servicio of listServicios"
+                    [value]="servicio.idServicio">{{servicio.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            
+            </ion-list>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" [disabled]="!formularioRegistro.valid" type="submit">Registrar Empleado
+      </ion-button>
+
+    </form>
+
+  </ion-card>
+
+</ion-content>

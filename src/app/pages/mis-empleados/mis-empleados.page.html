@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" color="tertiary"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <ion-text color="light">
+            Empleados
+        </ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-list class="ion-no-padding ion-no-margin" [@staggerIn]="listaEmpleados">
+    <ion-item class="ion-no-padding" lines="none" *ngFor="let empleado of listaEmpleados" tappable>
+      <ion-thumbnail class="ion-margin" slot="start">
+          <img [src]="empleado.imagen">
+        </ion-thumbnail>
+      <ion-label>
+        <h2 class="fw700 text08">
+          <ion-text color="dark">{{empleado.nombres}} {{empleado.apellidos}} </ion-text>
+        </h2>
+      </ion-label>
+      <ion-badge color="primary">
+        <ion-icon name="arrow-forward"></ion-icon>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-list class="ion-no-padding" *ngIf="listaEmpleados.length == 0">
+    <ion-item>
+      <ion-label>No existen empleados registrados</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="danger" (click)="presentModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+</ion-content>

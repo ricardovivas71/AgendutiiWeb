@@ -43,6 +43,8 @@ const routes: Routes = [
   { path: 'mis-establecimientos', loadChildren: () => import('./pages/mis-establecimientos/mis-establecimientos.module').then( m => m.MisEstablecimientosPageModule)},
   {path: 'servicios-establecimiento',loadChildren: () => import('./pages/servicios-establecimiento/servicios-establecimiento.module').then( m => m.ServiciosEstablecimientoPageModule)},
   {path: 'registrar-servicio',loadChildren: () => import('./pages/registrar-servicio/registrar-servicio.module').then( m => m.RegistrarServicioPageModule)},
+  {path: 'gestionar-empleados',loadChildren: () => import('./pages/gestionar-empleados/gestionar-empleados.module').then( m => m.GestionarEmpleadosPageModule)},
+  {path: 'mis-empleados',loadChildren: () => import('./pages/mis-empleados/mis-empleados.module').then( m => m.MisEmpleadosPageModule)},
 
 ];
 
