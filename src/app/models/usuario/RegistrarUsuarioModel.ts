@@ -1,17 +1,17 @@
 export class RegistrarUsuarioModel{
-        nombre: string;
-        apellido: string;
-        email: string;
+        nombres: string;
+        apellidos: string;
+        correo: string;
         contrasena: string;
-        telefono: string;
+        celular: string;
         tipoUsuario: boolean;
 
-        constructor(nombre, apellido, email, contrasena, telefono, tipoUsuario){
-                this.nombre=nombre;
-                this.apellido=apellido;
-                this.email=email;
+        constructor(nombres, apellidos, correo, contrasena, celular, tipoUsuario){
+                this.nombres=nombres;
+                this.apellidos=apellidos;
+                this.correo=correo;
                 this.contrasena=contrasena;
-                this.telefono=telefono;
+                this.celular=celular;
                 this.tipoUsuario=tipoUsuario;
         }
 

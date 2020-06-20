@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, MaxLengthValidator } from '@angular
 import { NavController, MenuController, LoadingController, ToastController } from '@ionic/angular';
 import { RegistrarUsuarioModel } from 'src/app/models/usuario/RegistrarUsuarioModel';
 import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +20,10 @@ export class RegisterPage implements OnInit {
     public menuCtrl: MenuController,
     public loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
+    private router: Router,
     public toastController: ToastController,
-    public registroUsuario: UsuarioService
+    public registroUsuario: UsuarioService,
+    private storage: Storage
   ) { }
 
   ionViewWillEnter() {
@@ -66,11 +70,20 @@ export class RegisterPage implements OnInit {
       this.registroUsuario.registrarUsuario(registroUsuario).subscribe(async resultado =>{
         console.log(resultado,'RESPUESTA SERVICIO');
         if(resultado.codigo == "1"){
+          this.storage.set('idUsuario', resultado.respuesta);
           const toast = await this.toastController.create({
-            message: 'Usuario '+resultado.respuesta + ' creado con exito',
+            message: 'Usuario creado con éxito',
             duration: 2000
           });
           toast.present();
+          if(registroUsuario.tipoUsuario)
+          {
+            //Redirigir a crear establecimiento
+            this.router.navigate(['/mis-establecimientos']);
+          }else{
+            //Redirigir a agendar citas
+            this.router.navigate(['/home']);
+          }
         }else{
           const toast = await this.toastController.create({
             message: 'Ups! ha ocurrido un error, intenta nuevamente',

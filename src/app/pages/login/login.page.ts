@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { TranslateProvider } from '../../providers';
+import { LoginModel } from 'src/app/models/usuario/LoginModel';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +23,12 @@ export class LoginPage implements OnInit {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     private translate: TranslateProvider,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public toastController: ToastController,
+    private router: Router,
+    public loginUsuario: UsuarioService,
+    private storage: Storage,
+    private sms: SMS
   ) { }
 
   ionViewWillEnter() {
@@ -28,7 +38,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
 
     this.onLoginForm = this.formBuilder.group({
-      'email': [null, Validators.compose([
+      'celular': [null, Validators.compose([
         Validators.required
       ])],
       'password': [null, Validators.compose([
@@ -43,9 +53,9 @@ export class LoginPage implements OnInit {
       message: this.translate.get('app.pages.login.text.forgot'),
       inputs: [
         {
-          name: 'email',
-          type: 'email',
-          placeholder: this.translate.get('app.label.email')
+          name: 'celular',
+          type: 'tel',
+          placeholder: this.translate.get('app.label.celular')
         }
       ],
       buttons: [
@@ -62,7 +72,7 @@ export class LoginPage implements OnInit {
             const loader = await this.loadingCtrl.create({
               duration: 2000
             });
-
+            this.sms.send('+57 3143863944', 'Hello world!');
             loader.present();
             loader.onWillDismiss().then(async l => {
               const toast = await this.toastCtrl.create({
@@ -88,7 +98,29 @@ export class LoginPage implements OnInit {
   }
 
   goToHome() {
-    this.navCtrl.navigateRoot('/home-location');
+    let loginUsuario = new LoginModel(
+      this.onLoginForm.get('celular').value,
+      this.onLoginForm.get('password').value
+    );
+
+    this.loginUsuario.loginUsuario(loginUsuario).subscribe(async resultado =>{
+      console.log(resultado,'RESPUESTA SERVICIO');
+      if(resultado.codigo == "1"){
+        this.storage.set('idUsuario', resultado.respuesta);
+        const toast = await this.toastController.create({
+          message: 'Bienvenido a Agendutti',
+          duration: 2000
+        });
+        toast.present();
+          this.router.navigate(['/home']);
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Ups! credenciales incorrectas, intenta nuevamente',
+          duration: 2000
+        });
+        toast.present();
+      }}
+    );
   }
 
 }
