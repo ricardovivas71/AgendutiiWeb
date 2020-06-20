@@ -4,6 +4,7 @@ import { RegistrarUsuarioModel } from 'src/app/models/usuario/RegistrarUsuarioMo
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Constantes } from 'src/app/Utils/constantes';
+import { LoginModel } from 'src/app/models/usuario/LoginModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +16,5 @@ export class UsuarioService {
   constructor(private httpClient: HttpClient) { }
 
   registrarUsuario = (oObjeto:RegistrarUsuarioModel):Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiRegistrarUsuario, oObjeto, { headers: this.cabecera });
+  loginUsuario = (oObjeto:LoginModel):Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiLoginUsuario, oObjeto, { headers: this.cabecera });
 }

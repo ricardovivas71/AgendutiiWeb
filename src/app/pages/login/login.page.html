@@ -17,12 +17,12 @@
     <form [formGroup]="onLoginForm" class="list-form">
       <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
-          <ion-icon name="mail" item-start></ion-icon>
-          {{ 'app.label.email' | translate }}
+          <ion-icon name="call" item-start></ion-icon>
+          {{ 'app.label.celular' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="email" formControlName="email"></ion-input>
+        <ion-input color="secondary" type="tel" formControlName="celular"></ion-input>
       </ion-item>
-      <p ion-text class="text08" *ngIf="onLoginForm.get('email').touched && onLoginForm.get('email').hasError('required')">
+      <p ion-text class="text08" *ngIf="onLoginForm.get('celular').touched && onLoginForm.get('celular').hasError('required')">
         <ion-text color="warning">
           {{ 'app.label.errors.field' | translate }}
         </ion-text>
