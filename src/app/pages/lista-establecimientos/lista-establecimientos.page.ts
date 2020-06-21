@@ -10,6 +10,7 @@ import {
   query,
   stagger
 } from '@angular/animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lista-establecimientos',
@@ -30,7 +31,8 @@ export class ListaEstablecimientosPage implements OnInit {
   items: any;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     let lista = this.activatedRoute.snapshot.paramMap.get('lista');
@@ -57,7 +59,12 @@ export class ListaEstablecimientosPage implements OnInit {
   }
 
   inicializarLista() {
-      this.items = this.listaEstablecimientos;
+
+    this.listaEstablecimientos.forEach((element,index) =>{
+      element.imagen = element.imagen != "" ? this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen) : "";
+    });
+    console.log("RESULTADO ESTABLECIMIENTOS",this.listaEstablecimientos);
+    this.items = this.listaEstablecimientos;
   }
 
   onCancel() {

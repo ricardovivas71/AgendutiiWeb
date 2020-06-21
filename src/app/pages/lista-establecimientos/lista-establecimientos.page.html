@@ -20,10 +20,15 @@
           <div class="ion-no-margin" [@staggerIn]="items">
             <!-- # -->
             <ion-item lines="none" class="bg-white" tappable *ngFor="let establecimiento of items" (click)="AgendarCita(establecimiento)">
-              <ion-thumbnail slot="start">
-                  <img src="assets/icon/ImagenLugar.jpg">
-                  <!-- <ion-icon src="assets/icon/barberia.svg"></ion-icon> -->
+
+
+              <ion-thumbnail class="ion-margin" slot="start" *ngIf="establecimiento.imagen != ''">
+                <img [src]="establecimiento.imagen">
               </ion-thumbnail>
+              <ion-thumbnail class="ion-margin" slot="start" *ngIf="establecimiento.imagen == ''">
+                  <img src="../../../assets/img/avatar-est.png">
+              </ion-thumbnail>
+
               <ion-label class="ion-text-wrap" style="text-align: justify">
                   <h2>
                       <ion-text color="dark"><strong>{{ establecimiento.nombre }}</strong></ion-text>

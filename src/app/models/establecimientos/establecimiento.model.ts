@@ -4,7 +4,7 @@ export class EstablecimientoModel{
     public direccion: string;
     public domicilios:boolean;
     public estado:boolean;
-    public imagen:string;
+    public imagen:any;
     public idLocalizacion:number;
     public idCategoriaEst: number;
     public barrio: string;

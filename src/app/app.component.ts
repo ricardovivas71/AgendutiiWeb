@@ -37,13 +37,6 @@ export class AppComponent {
         icon: 'browsers'
       },
       {
-
-        title: 'Gestionar Establecimientos',
-        url: '/gestionar-establecimientos',
-        direct: 'root',
-        icon: 'browsers'
-      },
-      {
         title: 'Mis Establecimientos',
         url: '/mis-establecimientos',
         direct: 'forward',

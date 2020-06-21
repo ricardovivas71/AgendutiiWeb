@@ -100,4 +100,8 @@ export class MisEstablecimientosPage implements OnInit {
     this.router.navigate(['/mis-empleados',{idEstablecimiento: establecimiento.idEstablecimiento}]);
   }
 
+  registrarEstablecimiento(){
+    this.router.navigate(['/gestionar-establecimientos']);
+  }
+
 }
