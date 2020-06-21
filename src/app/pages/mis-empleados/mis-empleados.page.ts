@@ -56,6 +56,7 @@ export class MisEmpleadosPage implements OnInit {
   }
 
   consultarEmpleados(idEstablecimiento){
+    this.listaEmpleados = [];
     let oEmpleados = new ConsultarEmpleadosDtoModel(idEstablecimiento);
     this.empleadosService.consultarEmpleados(oEmpleados).subscribe(async resultado =>{
       
@@ -73,7 +74,7 @@ export class MisEmpleadosPage implements OnInit {
         console.log("Lista Empleados",this.listaEmpleados);
       }else{
         const toast = await this.toastController.create({
-          message: 'Error consultando empleados',
+          message: 'Error consultando colaboradores',
           duration: 2000
         });
         toast.present();
@@ -87,13 +88,13 @@ export class MisEmpleadosPage implements OnInit {
       if(resultado.codigo == "1"){
         this.consultarEmpleados(this.idEstablecimiento);
         const toast = await this.toastController.create({
-          message: 'Empleado eliminado con exito',
+          message: 'Colaborador eliminado con éxito',
           duration: 2000
         });
         toast.present();
       }else{
         const toast = await this.toastController.create({
-          message: 'Ups! Error eliminando el empleado',
+          message: 'Ups! Error eliminando el colaborador',
           duration: 2000
         });
         toast.present();

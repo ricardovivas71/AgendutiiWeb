@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
         <ion-text color="light">
-            Empleados
+          Colaboradores
         </ion-text>
     </ion-title>
   </ion-toolbar>
@@ -39,12 +39,12 @@
 
   <ion-list class="ion-no-padding" *ngIf="listaEmpleados.length == 0">
     <ion-item>
-      <ion-label>No existen empleados registrados</ion-label>
+      <ion-label>No existen colaboradores registrados</ion-label>
     </ion-item>
   </ion-list>
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="danger" (click)="presentModal()">
+    <ion-fab-button color="secondary" (click)="presentModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
