@@ -13,20 +13,28 @@
 
 
 <ion-content>
-  <ion-list class="ion-no-padding ion-no-margin" [@staggerIn]="listaEmpleados">
-    <ion-item class="ion-no-padding" lines="none" *ngFor="let empleado of listaEmpleados" tappable>
-      <ion-thumbnail class="ion-margin" slot="start">
+
+  <ion-list class="ion-no-padding ion-no-margin" [@staggerIn]="listaEmpleados" *ngIf="listaEmpleados.length > 0">
+    <ion-item-sliding *ngFor="let empleado of listaEmpleados"  #slidingList>
+      <ion-item class="ion-no-padding" lines="none" tappable>
+        <ion-thumbnail class="ion-margin" slot="start" *ngIf="empleado.imagen != ''">
           <img [src]="empleado.imagen">
         </ion-thumbnail>
-      <ion-label>
-        <h2 class="fw700 text08">
-          <ion-text color="dark">{{empleado.nombres}} {{empleado.apellidos}} </ion-text>
-        </h2>
-      </ion-label>
-      <ion-badge color="primary">
-        <ion-icon name="arrow-forward"></ion-icon>
-      </ion-badge>
-    </ion-item>
+        <ion-thumbnail class="ion-margin" slot="start" *ngIf="empleado.imagen == ''">
+            <img src="../../../assets/img/user.png">
+        </ion-thumbnail>
+        <ion-label>
+          <h2 class="fw700 text08">
+            <ion-text color="dark">{{empleado.nombres}} {{empleado.apellidos}} </ion-text>
+          </h2>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminarEmpleado(empleado)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-list class="ion-no-padding" *ngIf="listaEmpleados.length == 0">

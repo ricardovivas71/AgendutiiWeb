@@ -7,6 +7,7 @@ import { ConsultarEmpleadosDtoModel } from 'src/app/models/empleados/consultarEm
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EmpleadosModel } from 'src/app/models/empleados/empleados';
+import { EliminarEmpleadoDto } from 'src/app/models/empleados/eliminarEmpleadoDto';
 
 @Component({
   selector: 'app-mis-empleados',
@@ -33,8 +34,8 @@ export class MisEmpleadosPage implements OnInit {
     private sanitizer: DomSanitizer,) { }
 
   ngOnInit() {
-    this.consultarEmpleados(this.idEstablecimiento);
     this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('idEstablecimiento'));
+    this.consultarEmpleados(this.idEstablecimiento);
   }
 
   async presentModal() {
@@ -57,17 +58,42 @@ export class MisEmpleadosPage implements OnInit {
   consultarEmpleados(idEstablecimiento){
     let oEmpleados = new ConsultarEmpleadosDtoModel(idEstablecimiento);
     this.empleadosService.consultarEmpleados(oEmpleados).subscribe(async resultado =>{
+      
       if(resultado.codigo == "1"){
         resultado.respuesta.forEach(element => {
           let empleado = new EmpleadosModel();
           empleado.idEmpleado = element.idEmpleado;
           empleado.nombres = element.nombres;
           empleado.apellidos = element.apellidos;
-          empleado.imagen = this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen);
+          empleado.imagen = element.imagen != "" ? this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen) : "";
+
+          this.listaEmpleados.push(empleado);
+
         });
+        console.log("Lista Empleados",this.listaEmpleados);
       }else{
         const toast = await this.toastController.create({
           message: 'Error consultando empleados',
+          duration: 2000
+        });
+        toast.present();
+      }
+    });
+  }
+
+  eliminarEmpleado(empleado){
+    let oEmpleado = new EliminarEmpleadoDto(empleado.idEmpleado);
+    this.empleadosService.eliminarEmpleado(oEmpleado).subscribe(async resultado =>{
+      if(resultado.codigo == "1"){
+        this.consultarEmpleados(this.idEstablecimiento);
+        const toast = await this.toastController.create({
+          message: 'Empleado eliminado con exito',
+          duration: 2000
+        });
+        toast.present();
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Ups! Error eliminando el empleado',
           duration: 2000
         });
         toast.present();

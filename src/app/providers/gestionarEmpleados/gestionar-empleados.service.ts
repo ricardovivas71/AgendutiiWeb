@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { Constantes } from 'src/app/Utils/constantes';
 import { ConsultarEmpleadosDtoModel } from 'src/app/models/empleados/consultarEmpleadosDto';
 import { RegistrarEmpleadosModel } from 'src/app/models/empleados/registrarEmpleados';
+import { EliminarEmpleadoDto } from 'src/app/models/empleados/eliminarEmpleadoDto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +19,6 @@ export class GestionarEmpleadosService {
 
   consultarEmpleados = (oObjeto:ConsultarEmpleadosDtoModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiConsultarEmpleadosEstab, oObjeto,{ headers: this.cabecera });
   registrarEmpleados = (oObjeto:RegistrarEmpleadosModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiRegistrarEmpleados, oObjeto,{ headers: this.cabecera });
+  eliminarEmpleado = (oObjeto:EliminarEmpleadoDto): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiEliminarEmpleado, oObjeto,{ headers: this.cabecera });
  
 }
