@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
+//import { Router } from '@angular/router';
 
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateProvider } from './providers/translate/translate.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { Storage } from '@ionic/storage';
 
 import { Pages } from './interfaces/pages';
 
@@ -26,8 +27,9 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private translate: TranslateProvider,
-    private translateService: TranslateService
-    // public router: Router
+    private translateService: TranslateService,
+    private storage: Storage
+    //public router: Router
   ) {
     this.appPages = [
       {
@@ -156,6 +158,7 @@ export class AppComponent {
   }
 
   closeMenu() {
+    this.storage.set('idUsuario', null);
     this.menu.close();
   }
 

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { UsuarioService } from 'src/app/providers/usuario/usuario.service';
 import { SMS } from '@ionic-native/sms/ngx';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,8 @@ import { SMS } from '@ionic-native/sms/ngx';
 })
 export class LoginPage implements OnInit {
   public onLoginForm: FormGroup;
+  public idEstablecimiento: number;
+  public nombreEstablecimiento: string;
 
   constructor(
     public navCtrl: NavController,
@@ -26,6 +29,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     public toastController: ToastController,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     public loginUsuario: UsuarioService,
     private storage: Storage,
     private sms: SMS
@@ -36,6 +40,8 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.nombreEstablecimiento = this.activatedRoute.snapshot.paramMap.get('nombre');
 
     this.onLoginForm = this.formBuilder.group({
       'celular': [null, Validators.compose([
@@ -107,12 +113,19 @@ export class LoginPage implements OnInit {
       console.log(resultado,'RESPUESTA SERVICIO');
       if(resultado.codigo == "1"){
         this.storage.set('idUsuario', resultado.respuesta);
-        const toast = await this.toastController.create({
-          message: 'Bienvenido a Agendutti',
-          duration: 2000
-        });
-        toast.present();
-          this.router.navigate(['/home']);
+        console.log("login valido",resultado);
+        console.log('¿Con establecimiento?',this.idEstablecimiento);
+        console.log('¿Con nombre?',this.nombreEstablecimiento);
+        if(this.idEstablecimiento != NaN && this.idEstablecimiento != undefined && this.nombreEstablecimiento != null){
+          this.router.navigate(['/agendar-cita',{id: this.idEstablecimiento, nombre:this.nombreEstablecimiento}]);
+        }else{
+          const toast = await this.toastController.create({
+            message: 'Bienvenido a Agendutti',
+            duration: 2000
+          });
+          toast.present();
+            this.router.navigate(['/home']);
+        }
       }else{
         const toast = await this.toastController.create({
           message: 'Ups! credenciales incorrectas, intenta nuevamente',
