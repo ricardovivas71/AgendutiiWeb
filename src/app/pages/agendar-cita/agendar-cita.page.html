@@ -27,7 +27,7 @@
   </div>
 
   <div>
-    <ion-slides #theslides pager="false" scrollbar="false" (ionSlideDidChange)="onSlideChange()">
+    <ion-slides #theslides pager="false" scrollbar="false" (ionSlideDidChange)="onSlideChange()" (ionSlideNextStart)="onSlideNextStart()">
       <ion-slide>
         <div>
           <ion-grid fixed>

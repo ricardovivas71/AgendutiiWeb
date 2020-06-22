@@ -33,6 +33,10 @@ export class ConfirmacionPage implements OnInit {
     console.log("horaSeleccionada",this.horaSeleccionada);
   }
 
+  Cancelar(){
+    this.modalCtrk.dismiss();
+  }
+
   AgendarCita(){
     //const fechaInicioCita = new Date(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual);
     this.fechaInicioCita.setHours(this.horaSeleccionada.getHours());

@@ -58,7 +58,7 @@ export class AgendarCitaPage implements OnInit {
     this.nombreEstablecimiento = this.activatedRoute.snapshot.paramMap.get('nombre');
     console.log("ID ESTABLECIMIENTO",this.idEstablecimiento);
     this.inicializarStep();
-    this.ConsultarServicios();
+    this.ConsultarServicios(this.idEstablecimiento);
   }
 
   inicializarStep() {
@@ -67,7 +67,7 @@ export class AgendarCitaPage implements OnInit {
         this.numbers = num;
         this.numberss = Array(this.numbers).fill(0).map((x, i) => i);
         console.log(this.numberss);
-      })
+      });
   }
 
   checkIsend() {
@@ -78,12 +78,20 @@ export class AgendarCitaPage implements OnInit {
       })
   }
 
-  switchFunctions(result) {
+  async switchFunctions(result) {
     if (result) {
       if (this.platform.is("cordova")) {
         this.showInterstitialAds();
       }
-      this.showSuccessModal();
+      if(this.horaSeleccionada != undefined){
+        this.showSuccessModal();
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Por favor selecciona la hora de tu cita!',
+          duration: 2000
+        });
+        toast.present();
+      }
     }
 
     else {
@@ -124,14 +132,58 @@ export class AgendarCitaPage implements OnInit {
     this.slides.getActiveIndex()
       .then(index => {
         this.activeIndex = index;
-        console.log(this.activeIndex);
-        if (index == 4) {
-          this.buttonText = 'Pay';
+        if (index == 3) {
+          this.buttonText = 'Agendar';
         }
         else {
           this.buttonText = 'Siguiente'
         }
-      })
+      });
+  }
+
+  onSlideNextStart(){
+    console.log("SIGUIENTE DIAPOSITIVA");
+    this.slides.getActiveIndex()
+    .then(async index => {
+      this.activeIndex = index;
+      console.log(this.activeIndex);
+
+      switch (this.activeIndex) {
+        case 1:
+          if(this.fechaSeleccionada == undefined){
+            this.slides.slidePrev();
+            const toast = await this.toastController.create({
+              message: 'Por favor selecciona el día de tu cita!',
+              duration: 2000
+            });
+            toast.present();
+          }
+          break;
+        case 2:
+          if(this.servicioSeleccionado == undefined){
+            this.slides.slidePrev();
+            const toast = await this.toastController.create({
+              message: 'Por favor selecciona un servicio!',
+              duration: 2000
+            });
+            toast.present();
+          }
+          break;
+        case 3:
+          if(this.colaboradorSeleccionado == undefined){
+            this.slides.slidePrev();
+            const toast = await this.toastController.create({
+              message: 'Por favor selecciona un colaborador!',
+              duration: 2000
+            });
+            toast.present();
+          }
+          break;
+        default:
+          break;
+      }
+
+    });
   }
 
   obtenerHora(event){
@@ -153,14 +205,14 @@ export class AgendarCitaPage implements OnInit {
     console.log("Fecha Cita", this.fechaSeleccionada);
     this.servicioSeleccionado = undefined;
     this.colaboradorSeleccionado = null;
-    this.ConsultarServicios();
+    this.ConsultarServicios(this.idEstablecimiento);
     this.ObtenerHorarioMinMaximo();
   }
 
-  ConsultarServicios() {
+  ConsultarServicios(idEstablecimiento) {
     this.listaServicios = [];
     this.listaEmpleados = [];
-    let oBusqueda = new ConsultarServiciosModel(1);
+    let oBusqueda = new ConsultarServiciosModel(idEstablecimiento);
     console.log("MODELO SERVICIOS", oBusqueda);
     this.agendarService.consultarLocalizacion(oBusqueda).subscribe(resultado => {
       console.log("RESULTADO SERVICIOS", resultado);
@@ -214,6 +266,7 @@ export class AgendarCitaPage implements OnInit {
   }
 
   ObtenerHorasDisponibles() {
+    this.listaCitasEmpleado = [];
     let horarioEmpleadoDto = new HorarioEmpleadoDtoModel(this.colaboradorSeleccionado.idEmpleado, new DatePipe(this.locale).transform(this.fechaSeleccionada != undefined ? this.fechaSeleccionada : this.fechaActual, Constantes.formatoFechaLargo, this.locale));
     this.agendarService.consultarHorarioEmpleado(horarioEmpleadoDto).subscribe(resultado => {
       console.log("Resultado Horario Nigga", resultado);
@@ -226,6 +279,8 @@ export class AgendarCitaPage implements OnInit {
 
 
   GenerarHorarioDisponible() {
+    this.listaHorasDispAux = [];
+    this.listaHorasDisponibles = [];
     let contador: number = 2;
     let horaInicioSitio = new Date();
     horaInicioSitio.setHours(new Date(this.listaHorarioEstablecimiento[0].horaInicio).getHours());
@@ -238,7 +293,7 @@ export class AgendarCitaPage implements OnInit {
 
     this.listaHorasDisponibles.push(new HorasDisponiblesModel(1, horaInicioSitio));
 
-    while (horaFinSitio.getTime() >= horaInicioSitio.getTime()) {
+    while (horaFinSitio.getTime() > horaInicioSitio.getTime()) {
       let pivote = horaInicioSitio.getTime() + this.quinceMinutos;
       let siguienteHora = new Date(pivote);
       this.listaHorasDisponibles.push(new HorasDisponiblesModel(contador, siguienteHora));
