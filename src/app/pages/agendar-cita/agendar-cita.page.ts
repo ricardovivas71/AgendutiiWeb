@@ -15,6 +15,7 @@ import { HorarioEmpleadoDtoModel } from 'src/app/models/agendar/horarioEmpleadoD
 import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free/ngx';
 import { ConfirmacionPage } from './confirmacion/confirmacion.page';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agendar-cita',
@@ -51,7 +52,8 @@ export class AgendarCitaPage implements OnInit {
     private platform: Platform,
     public admobFree: AdMobFree,
     private modalCtrl:ModalController,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
@@ -237,7 +239,17 @@ export class AgendarCitaPage implements OnInit {
       if (resultado.codigo == 1) {
         if (resultado.respuesta != null && resultado.respuesta.length > 0) {
           resultado.respuesta.forEach(element => {
-            this.listaEmpleados.push(new EmpleadosModel(element.idEmpleado, element.nombre, element.lunes, element.martes, element.miercoles, element.jueves, element.viernes, element.sabado, element.domingo));
+            this.listaEmpleados.push(new EmpleadosModel(
+              element.idEmpleado,
+              element.nombre,
+              element.lunes,
+              element.martes,
+              element.miercoles,
+              element.jueves,
+              element.viernes,
+              element.sabado,
+              element.domingo,
+              element.imagen != "" ? this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen) : ""));
           });
         } else {
           console.log("Entra al else");

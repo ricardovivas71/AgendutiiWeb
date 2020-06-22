@@ -8,8 +8,9 @@ export class EmpleadosModel{
     public viernes:boolean;
     public sabado:boolean;
     public domingo:boolean;
+    public imagen:any;
 
-    constructor(idEmpleado:number, nombre:string,lunes:boolean,martes:boolean,miercoles:boolean,jueves:boolean,viernes:boolean,sabado:boolean,domingo:boolean){
+    constructor(idEmpleado:number, nombre:string,lunes:boolean,martes:boolean,miercoles:boolean,jueves:boolean,viernes:boolean,sabado:boolean,domingo:boolean,imagen){
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.lunes = lunes;
@@ -18,5 +19,6 @@ export class EmpleadosModel{
         this.jueves = jueves;
         this.sabado = sabado;
         this.domingo = domingo;
+        this.imagen = imagen;
     }
 }

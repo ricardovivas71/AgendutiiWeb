@@ -70,8 +70,11 @@
           <ion-row>
             <ion-col size="6" *ngFor="let empleado of listaEmpleados">
               <ion-item lines="none" (click)="ModalColaborador(empleado)">
-                <ion-avatar slot="start">
-                  <img src="assets/img/avatar.jpeg" alt="">
+                <ion-avatar slot="start" *ngIf="empleado.imagen != ''">
+                  <img [src]="empleado.imagen">
+                </ion-avatar>
+                <ion-avatar slot="start" *ngIf="empleado.imagen == ''">
+                  <img src="../../../assets/img/user.png">
                 </ion-avatar>
                 <ion-label class="ion-text-wrap">{{empleado.nombre}}</ion-label>
                 <ion-radio [value]="empleado.idEmpleado"></ion-radio>
