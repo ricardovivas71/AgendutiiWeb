@@ -13,7 +13,9 @@ import {
 } from '@angular/animations';
 import { MisEstablecimientoModel } from 'src/app/models/establecimientos/misEstablecimientos.model';
 import { MisEstablecimientoModelDto } from 'src/app/models/establecimientos/MisEstablecimientosDTO.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ConsultarServiciosDtoModel } from 'src/app/models/servicios/consultarServiciosDto.mode';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -33,16 +35,21 @@ export class MisEstablecimientosPage implements OnInit {
 
   listaEstablecimientos: MisEstablecimientoModel[] = [];
   items: any;
+  idEstablecimiento:number;
   constructor(private gestionarEstService: GestionarEstablecimientoService,
               private sanitizer: DomSanitizer,
-              private router: Router,) { }
+              private router: Router,
+              public toastController: ToastController,
+              private activatedRoute: ActivatedRoute,) { }
 
   ngOnInit() {
+    this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('idEstablecimiento'));
     this.consultarMisEstablecimientos();
 
   }
 
   consultarMisEstablecimientos(){
+    this.listaEstablecimientos = [];
     let misEstablecimientos = new MisEstablecimientoModelDto(1);
     this.gestionarEstService.consultarMisEstablecimientos(misEstablecimientos).subscribe(resultado =>{
       if(resultado.codigo == 1){
@@ -66,6 +73,27 @@ export class MisEstablecimientosPage implements OnInit {
         console.log("Resultado establecimientos",this.listaEstablecimientos);
       }else{
         console.log("Error consultando establecimientos",resultado);
+      }
+    });
+  }
+
+  eliminarEstablecimiento(establecimiento){
+    let oObjeto = new ConsultarServiciosDtoModel();
+    oObjeto.idEstablecimiento = establecimiento.idEstablecimiento;
+    this.gestionarEstService.eliminarEstablecimiento(oObjeto).subscribe(async resultado =>{
+      if(resultado.codigo == "1"){
+        this.consultarMisEstablecimientos();
+        const toast = await this.toastController.create({
+          message: 'Establecimiento eliminado con éxito',
+          duration: 2000
+        });
+        toast.present();
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Ups! Error eliminando el establecimiento',
+          duration: 2000
+        });
+        toast.present();
       }
     });
   }

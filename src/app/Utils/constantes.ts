@@ -23,5 +23,6 @@ export class Constantes{
     public static readonly ApiRegistrarEmpleados = "/api/agendamiento/Empleado/NuevoEmpleado";
     public static readonly ApiLoginUsuario = "/api/agendamiento/Usuario/login";
     public static readonly ApiEliminarEmpleado = "/api/agendamiento/Empleado/EliminarEmpleado";
+    public static readonly ApiEliminarEstablecimiento = "/api/agendamiento/establecimiento/eliminarEstablecimiento";
 
 }

@@ -26,4 +26,5 @@ export class GestionarEstablecimientoService {
   consultarServicios = (oObjeto: ConsultarServiciosDtoModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiConsultarServiciosEstablecimiento, oObjeto, {headers: this.cabecera});
   registrarServicio = (oObjeto:RegistrarServicioModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiRegistrarServicio, oObjeto,{ headers: this.cabecera });
   eliminarServicio = (oObjeto:EliminarServiciosDtoModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiEliminarServicio, oObjeto,{ headers: this.cabecera });
+  eliminarEstablecimiento = (oObjeto:ConsultarServiciosDtoModel): Observable<any> => this.httpClient.post(environment.apiAgendamiento + Constantes.ApiEliminarEstablecimiento, oObjeto,{ headers: this.cabecera });
 }

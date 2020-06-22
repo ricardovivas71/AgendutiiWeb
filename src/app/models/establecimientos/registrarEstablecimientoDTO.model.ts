@@ -10,8 +10,10 @@ export class RegistrarEstablecimientoModel{
     public holgura:number;
     public capacidad:number;
     public imagen:string;
+    public horaInicio:string;
+    public horaFin:string;
 
-    constructor(nombre:string,direccion:string,idLocalizacion:number,idCategoria:number,barrio:string,descripcion:string,idUsuario:number,holgura:number,capacidad:number,imagen:string){
+    constructor(nombre:string,direccion:string,idLocalizacion:number,idCategoria:number,barrio:string,descripcion:string,idUsuario:number,holgura:number,capacidad:number,imagen:string,horaInicio:string,horaFin:string){
         this.nombre = nombre;
         this.direccion = direccion;
         this.idLocalizacion = idLocalizacion;
@@ -22,5 +24,7 @@ export class RegistrarEstablecimientoModel{
         this.holgura = holgura;
         this.capacidad = capacidad;
         this.imagen = imagen;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
 }

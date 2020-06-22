@@ -31,12 +31,12 @@
               </ion-list-header>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Nombre Establecimiento:</ion-label>
+                <ion-label color="dark" position="stacked">*Nombre Establecimiento:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Peluqueria Hugo's" formControlName="nombre"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark">Ciudad:</ion-label>
+                <ion-label color="dark">*Ciudad:</ion-label>
                 <ion-select formControlName="ciudad">
                   <ion-select-option *ngFor="let ciudad of listaCiudades" [value]="ciudad.idLocalizacion">
                     {{ciudad.nombre}}</ion-select-option>
@@ -44,18 +44,18 @@
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Dirección:</ion-label>
+                <ion-label color="dark" position="stacked">*Dirección:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Carrera 1b # 18 65" formControlName="direccion">
                 </ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Barrio:</ion-label>
+                <ion-label color="dark" position="stacked">*Barrio:</ion-label>
                 <ion-input inputmode="text" placeholder="Ejm: Barrio Chico" formControlName="barrio"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark">Tipo de servicio:</ion-label>
+                <ion-label color="dark">*Tipo de servicio:</ion-label>
                 <ion-select formControlName="tipoEstablecimiento">
                   <ion-select-option *ngFor="let servicio of listaTipoEstablecimiento"
                     [value]="servicio.idCategoriaEst">{{servicio.nombre}}</ion-select-option>
@@ -63,12 +63,28 @@
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Capacidad:</ion-label>
+                <ion-label color="dark" position="stacked">*Capacidad:</ion-label>
                 <ion-input inputmode="number" placeholder="Ejm: 20 personas" formControlName="capacidad"></ion-input>
               </ion-item>
 
               <ion-item>
-                <ion-label color="dark" position="stacked">Descripción:</ion-label>
+                <ion-label color="dark">*Hora Apertura:</ion-label>
+                <ion-select formControlName="horaInicio">
+                  <ion-select-option *ngFor="let lstHora of listaHorasDisponibles" [value]="lstHora.hora">
+                    {{lstHora.hora | date:'shortTime' }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="dark">*Hora Cierre:</ion-label>
+                <ion-select formControlName="horaFin">
+                  <ion-select-option *ngFor="let lstHora of listaHorasDisponibles" [value]="lstHora.hora">
+                    {{lstHora.hora | date:'shortTime' }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label color="dark" position="stacked">*Descripción:</ion-label>
                 <ion-textarea placeholder="Ejm: Brindamos servicio de asesoría de imagen" formControlName="descripcion">
                 </ion-textarea>
               </ion-item>
@@ -79,7 +95,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" type="submit">Registrar Establecimiento
+      <ion-button size="large" expand="full" color="dark" class="ion-no-margin" [disabled]="!formularioRegistro.valid" type="submit">Registrar Establecimiento
       </ion-button>
 
     </form>

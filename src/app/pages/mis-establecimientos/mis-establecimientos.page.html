@@ -25,42 +25,54 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-no-margin" [@staggerIn]="items">
-    <ion-card class="bg-white" *ngFor="let establecimientos of items">
+
+  <ion-list class="ion-no-padding ion-no-margin" [@staggerIn]="items">
+    <ion-item-sliding *ngFor="let establecimientos of items" #slidingList>
+      <ion-item class="ion-no-padding ion-no-margin" tappable>
+        <ion-card class="bg-white" >
       
-      <span class="card-img-status fw500 text-white closed">
-        {{ establecimientos.nombreCategoria }}
-      </span>
+          <span class="card-img-status fw500 text-white closed">
+            {{ establecimientos.nombreCategoria }}
+          </span>
+    
+          <img [src]="establecimientos.imagen" (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded" />
+          <ion-spinner [ngClass]="{'center':true}" *ngIf="!loaded"></ion-spinner>
+    
+          <ion-card-header>
+    
+             <ion-fab vertical="top" horizontal="start" edge>
+                <ion-fab-button>
+                  <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+                <ion-fab-list side="top">
+                  <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Colaborador</ion-label>
+                  <ion-fab-button (click)="registrarEmpleados(establecimientos)"><ion-icon name="person-add"></ion-icon></ion-fab-button>
+                  <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Servicio</ion-label>
+                  <ion-fab-button (click)="registrarServicio(establecimientos)"><ion-icon name="create"></ion-icon></ion-fab-button>
+                  <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Ajuste</ion-label>
+                  <ion-fab-button><ion-icon name="hammer"></ion-icon></ion-fab-button>
+                </ion-fab-list>
+              </ion-fab>
+              <br>
+              <ion-card-subtitle>       
+                <ion-text color="primary">{{establecimientos.nombre}}</ion-text>
+              </ion-card-subtitle>
+             
+              <ion-card-title class="ion-margin-bottom">           
+                <ion-text color="dark">{{establecimientos.barrio}}, {{establecimientos.direccion}}</ion-text>
+              </ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-item>
 
-      <img [src]="establecimientos.imagen" (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded" />
-      <ion-spinner [ngClass]="{'center':true}" *ngIf="!loaded"></ion-spinner>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="eliminarEstablecimiento(establecimientos)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
-      <ion-card-header>
-
-         <ion-fab vertical="top" horizontal="start" edge>
-            <ion-fab-button>
-              <ion-icon name="add"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-list side="top">
-              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Colaborador</ion-label>
-              <ion-fab-button (click)="registrarEmpleados(establecimientos)"><ion-icon name="person-add"></ion-icon></ion-fab-button>
-              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Servicio</ion-label>
-              <ion-fab-button (click)="registrarServicio(establecimientos)"><ion-icon name="create"></ion-icon></ion-fab-button>
-              <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Ajuste</ion-label>
-              <ion-fab-button><ion-icon name="hammer"></ion-icon></ion-fab-button>
-            </ion-fab-list>
-          </ion-fab>
-          <br>
-          <ion-card-subtitle>       
-            <ion-text color="primary">{{establecimientos.nombre}}</ion-text>
-          </ion-card-subtitle>
-         
-          <ion-card-title class="ion-margin-bottom">           
-            <ion-text color="dark">{{establecimientos.barrio}}, {{establecimientos.direccion}}</ion-text>
-          </ion-card-title>
-      </ion-card-header>
-    </ion-card>
-  </div>
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button color="secondary" (click)="registrarEstablecimiento()">
