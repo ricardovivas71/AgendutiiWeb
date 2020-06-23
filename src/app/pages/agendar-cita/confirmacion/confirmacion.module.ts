@@ -1,19 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
-import { ConfirmacionPageRoutingModule } from './confirmacion-routing.module';
 
 import { ConfirmacionPage } from './confirmacion.page';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ConfirmacionPage
+  }
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConfirmacionPageRoutingModule
+    RouterModule.forChild(routes),
   ],
   declarations: [ConfirmacionPage]
 })

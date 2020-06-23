@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EstablecimientoModel } from 'src/app/models/establecimientos/establecimiento.model';
-
+import { Storage } from '@ionic/storage';
 import {
   trigger,
   style,
@@ -32,6 +32,7 @@ export class ListaEstablecimientosPage implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
+    private storage: Storage,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -41,7 +42,14 @@ export class ListaEstablecimientosPage implements OnInit {
   }
 
   AgendarCita(establecimiento: EstablecimientoModel){
-    this.router.navigate(['/agendar-cita',{id: establecimiento.idEstablecimiento, nombre:establecimiento.nombre}]);
+    this.storage.get('idUsuario').then((val) => {
+      console.log('Usuario Login', val);
+      if(val != 0 && val != null){
+      this.router.navigate(['/agendar-cita',{id: establecimiento.idEstablecimiento, nombre:establecimiento.nombre}]);
+      }else{
+      this.router.navigate(['/login',{id: establecimiento.idEstablecimiento, nombre:establecimiento.nombre}]);
+    }
+    });
   }
 
   obtenerEstablecimiento(establecimiento: any) {

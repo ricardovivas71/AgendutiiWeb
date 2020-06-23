@@ -46,7 +46,7 @@ const routes: Routes = [
   {path: 'gestionar-empleados',loadChildren: () => import('./pages/gestionar-empleados/gestionar-empleados.module').then( m => m.GestionarEmpleadosPageModule)},
   {path: 'mis-empleados',loadChildren: () => import('./pages/mis-empleados/mis-empleados.module').then( m => m.MisEmpleadosPageModule)},
   {path: 'citas-establecimiento',loadChildren: () => import('./pages/citas-establecimiento/citas-establecimiento.module').then( m => m.CitasEstablecimientoPageModule)},
-
+  {path: 'confirmacion',loadChildren: () => import('./pages/agendar-cita/confirmacion/confirmacion.module').then( m => m.ConfirmacionPageModule)},
 ];
 
 @NgModule({
