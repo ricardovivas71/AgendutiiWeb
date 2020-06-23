@@ -132,4 +132,8 @@ export class MisEstablecimientosPage implements OnInit {
     this.router.navigate(['/gestionar-establecimientos']);
   }
 
+  consultarCitas(establecimiento){
+    this.router.navigate(['/citas-establecimiento',{idEstablecimiento: establecimiento.idEstablecimiento}]);
+  }
+
 }

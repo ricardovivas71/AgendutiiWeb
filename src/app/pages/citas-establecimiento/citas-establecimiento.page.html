@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="tertiary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-text color="light">
+        Citas Establecimiento
+      </ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item>
+    <ion-label>Fecha: </ion-label>
+    <ion-datetime [ngModel]="fechaConsulta.toISOString()" (ionChange)="obtenerFecha($event)"
+      placeholder="Selecciona el día" [dayShortNames]="customDayShortNames" displayFormat="DDD. MMM DD, YYYY"
+      monthShortNames="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre">
+    </ion-datetime>
+  </ion-item>
+
+  <ion-grid class="ion-no-padding" fixed>
+    <div class="ion-no-margin" [@staggerIn]="listaCitasEstablecimiento">
+      <!-- # -->
+      <ion-item lines="none" class="bg-white" tappable *ngFor="let cita of listaCitasEstablecimiento">
+
+        <ion-label class="ion-text-wrap" style="text-align: justify">
+          <h2>
+            <ion-text color="dark">Cita N°: {{cita.idCita}}</ion-text>
+            <ion-icon name="build" (click)="presentActionSheet(cita)"></ion-icon>
+          </h2>
+          <p class="text-12x">
+            <ion-icon name="person"></ion-icon>
+            <ion-text color="primary">{{cita.nombreUsuario}}</ion-text>
+          </p>
+          <p class="text-12x">
+            <ion-icon name="call"></ion-icon>
+            <ion-text color="primary">{{cita.celularUsuario}}</ion-text>
+          </p>
+          <p class="text-12x">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-text color="primary">{{cita.fechaCita | date}}</ion-text>
+          </p>
+          <p class="text-12x">
+            <ion-icon name="document"></ion-icon>
+            <ion-text color="primary">{{cita.servicio}}</ion-text> ∙ ∙
+            <ion-icon name="person"></ion-icon>
+            <ion-text color="secondary">{{ cita.colaborador }}</ion-text>
+          </p>
+
+          <ion-badge slot="end" color="primary" class="badgeCitas">
+            <ion-text color="light">
+              <ion-icon name="cash"></ion-icon> $ {{cita.precio}}
+            </ion-text>
+          </ion-badge>
+
+          <ion-badge slot="end" color="secondary" class="badgeCitas">
+            <ion-text color="light">
+              <ion-icon name="alarm"></ion-icon> {{cita.tiempoAtencion}} min
+            </ion-text>
+          </ion-badge>
+
+          <ion-badge slot="end"  color="light" class="badgeCitas"  *ngIf="cita.estado == 'AGENDADA'">
+            <ion-text>{{cita.estado}}</ion-text>
+          </ion-badge>
+          <ion-badge slot="end" color="tertiary"  class="badgeCitas" *ngIf="cita.estado == 'CONFIRMADA'">
+            <ion-text >{{cita.estado}}</ion-text>
+          </ion-badge>
+          <ion-badge slot="end"  color="danger"  class="badgeCitas" *ngIf="cita.estado == 'RECHAZADA'">
+            <ion-text>{{cita.estado}}</ion-text>
+          </ion-badge>
+        </ion-label>
+      </ion-item>
+      <!-- # -->
+    </div>
+
+  </ion-grid>
+
+  <ion-list class="ion-no-padding" *ngIf="listaCitasEstablecimiento.length == 0">
+    <ion-item>
+      <ion-label>No existen citas para la fecha seleccionada</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

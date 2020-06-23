@@ -1,6 +1,8 @@
 export class Constantes{
 
     public static readonly formatoFechaLargo: string = 'dd/MM/yyyy hh:mm:ss a';
+    public static readonly idEstadoConfirmada:number = 2;
+    public static readonly idEstadoRechazada:number = 4;
 
     public static readonly ApiConsultarLocalizacion: string = "/api/agendamiento/busqueda/localizacion";
     public static readonly ApiConsultarTiposServicio: string = "/api/agendamiento/busqueda/categorias";
@@ -24,5 +26,7 @@ export class Constantes{
     public static readonly ApiLoginUsuario = "/api/agendamiento/Usuario/login";
     public static readonly ApiEliminarEmpleado = "/api/agendamiento/Empleado/EliminarEmpleado";
     public static readonly ApiEliminarEstablecimiento = "/api/agendamiento/establecimiento/eliminarEstablecimiento";
+    public static readonly ApiConsultarCitaEstablecimiento = "/api/agendamiento/Cita/establecimiento";
+    public static readonly ApiGestionarCitas = "/api/agendamiento/Cita/estadoCita";
 
 }

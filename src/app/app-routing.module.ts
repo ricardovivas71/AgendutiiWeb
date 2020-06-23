@@ -45,6 +45,7 @@ const routes: Routes = [
   {path: 'registrar-servicio',loadChildren: () => import('./pages/registrar-servicio/registrar-servicio.module').then( m => m.RegistrarServicioPageModule)},
   {path: 'gestionar-empleados',loadChildren: () => import('./pages/gestionar-empleados/gestionar-empleados.module').then( m => m.GestionarEmpleadosPageModule)},
   {path: 'mis-empleados',loadChildren: () => import('./pages/mis-empleados/mis-empleados.module').then( m => m.MisEmpleadosPageModule)},
+  {path: 'citas-establecimiento',loadChildren: () => import('./pages/citas-establecimiento/citas-establecimiento.module').then( m => m.CitasEstablecimientoPageModule)},
 
 ];
 

@@ -49,8 +49,10 @@
                   <ion-fab-button (click)="registrarEmpleados(establecimientos)"><ion-icon name="person-add"></ion-icon></ion-fab-button>
                   <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Servicio</ion-label>
                   <ion-fab-button (click)="registrarServicio(establecimientos)"><ion-icon name="create"></ion-icon></ion-fab-button>
-                  <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Ajuste</ion-label>
-                  <ion-fab-button><ion-icon name="hammer"></ion-icon></ion-fab-button>
+                  <!-- <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Ajuste</ion-label>
+                  <ion-fab-button><ion-icon name="hammer"></ion-icon></ion-fab-button> -->
+                  <ion-label style="font-size: 9px; background-color: #41b09f; color: white">Citas</ion-label>
+                  <ion-fab-button (click)="consultarCitas(establecimientos)"><ion-icon name="hammer"></ion-icon></ion-fab-button>
                 </ion-fab-list>
               </ion-fab>
               <br>
