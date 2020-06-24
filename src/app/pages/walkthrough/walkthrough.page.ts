@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, IonSlides, MenuController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-walkthrough',
@@ -17,28 +18,13 @@ export class WalkthroughPage implements OnInit {
   };
   dir: String = 'ltr';
 
-  slideList: Array<any> = [
-    {
-      title: 'What is <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
-      image: 'assets/img/house01.png',
-    },
-    {
-      title: 'Why <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
-      image: 'assets/img/business01.png',
-    },
-    {
-      title: '<strong>Find your perfect place!</strong>',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
-      image: 'assets/img/rent01.png',
-    }
-  ];
+  slideList: Array<any> = [];
 
   constructor(
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public router: Router
+    public router: Router,
+    private storage: Storage,
   ) {
     this.menuCtrl.enable(false);
   }
@@ -47,6 +33,33 @@ export class WalkthroughPage implements OnInit {
   }
 
   ngOnInit() {
+    this.storage.get('idUsuario').then((val) => {
+      console.log('Usuario Login', val);
+      if(val != 0 && val != null){
+        this.router.navigate(['/home']);
+      }else{
+        this.slideList = [
+          {
+            title: 'What is <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
+            image: 'assets/img/house01.png',
+          },
+          {
+            title: 'Why <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
+            image: 'assets/img/business01.png',
+          },
+          {
+            title: '<strong>Find your perfect place!</strong>',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
+            image: 'assets/img/rent01.png',
+          }
+        ];
+      }
+    });
+    
+    
+
   }
 
   onSlideNext() {
