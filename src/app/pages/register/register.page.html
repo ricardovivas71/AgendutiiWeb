@@ -105,7 +105,7 @@
           <ion-icon name="lock" item-start></ion-icon>
           {{ 'app.label.password' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="password" formControlName="contrasena" (keyup.enter)="validaContrasena()"></ion-input>
+        <ion-input color="secondary" type="password" formControlName="contrasena"></ion-input>
       </ion-item>
       <p color="warning" class="text08" *ngIf="onRegisterForm.get('contrasena').touched && onRegisterForm.get('contrasena').hasError('required')">
         <ion-text color="warning">
@@ -124,12 +124,12 @@
       </p>
 
 
-      <ion-item class="ion-no-padding animated fadeInUp">
+      <!-- <ion-item class="ion-no-padding animated fadeInUp">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           {{ 'app.label.repassword' | translate }}
         </ion-label>
-        <ion-input color="secondary" type="password" formControlName="reContrasena" (keyup.enter)="validaContrasena()"></ion-input>
+        <ion-input color="secondary" type="password" formControlName="reContrasena"></ion-input>
       </ion-item>
       <p color="warning" class="text08" *ngIf="onRegisterForm.get('reContrasena').touched && onRegisterForm.get('reContrasena').hasError('required')">
         <ion-text color="warning">{{ 'app.label.errors.field' | translate }}</ion-text>
@@ -144,9 +144,7 @@
         <ion-text color="warning">
           {{ 'app.label.errors.contrasenaPattern' | translate }}
         </ion-text>
-      </p>
-
-
+      </p> -->
       
       <ion-item>
         <ion-label class="label" color="primary"> {{ 'app.label.tipoUsuario' | translate }} </ion-label>
