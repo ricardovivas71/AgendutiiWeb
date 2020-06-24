@@ -138,7 +138,7 @@ export class AppComponent {
   initializeApp() {
     this.storage.get('nombreUsuario').then((val) => {
       console.log('NOMBRE Login', val);
-      if(val != 0 && val != null){
+      if(val != '' && val != null){
         this.nombreUsuario = val;
       }else{
       this.nombreUsuario = null;
@@ -169,6 +169,7 @@ export class AppComponent {
 
   closeMenu() {
     this.storage.set('idUsuario', null);
+    this.storage.set('nombreUsuario', null);
     this.menu.close();
   }
 
