@@ -40,11 +40,16 @@ export class AppComponent {
         icon: 'browsers'
       },
       {
+        title: 'Mis Citas',
+        url: '/mis-citas',
+        direct: 'forward',
+        icon: 'calendar'
+      },
+      {
         title: 'Mis Establecimientos',
         url: '/mis-establecimientos',
         direct: 'forward',
         icon: 'home'
-
       },
       // {
       //   title: 'Home Results',
