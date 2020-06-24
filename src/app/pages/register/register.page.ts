@@ -60,6 +60,7 @@ export class RegisterPage implements OnInit {
         console.log(resultado,'resultado/signUp')
         if(resultado.codigo == "1"){
            this.storage.set('idUsuario', resultado.respuesta);
+           this.storage.set('nombreUsuario', resultado.respuesta.nombreUsuario);
            const toast = await this.toastController.create({
               message: 'Usuario creado con éxito',
               duration: 2000

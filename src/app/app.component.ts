@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import { Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -20,6 +20,7 @@ import { Pages } from './interfaces/pages';
 export class AppComponent {
 
   public appPages: Array<Pages>;
+  public nombreUsuario: string;
 
   constructor(
     private platform: Platform,
@@ -28,8 +29,8 @@ export class AppComponent {
     private statusBar: StatusBar,
     private translate: TranslateProvider,
     private translateService: TranslateService,
-    private storage: Storage
-    //public router: Router
+    private storage: Storage,
+    public router: Router
   ) {
     this.appPages = [
       {
@@ -135,6 +136,15 @@ export class AppComponent {
   }
 
   initializeApp() {
+    this.storage.get('nombreUsuario').then((val) => {
+      console.log('NOMBRE Login', val);
+      if(val != '' && val != null){
+        this.nombreUsuario = val;
+      }else{
+      this.nombreUsuario = null;
+    }
+    });
+
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       setTimeout(() => {
@@ -159,6 +169,7 @@ export class AppComponent {
 
   closeMenu() {
     this.storage.set('idUsuario', null);
+    this.storage.set('nombreUsuario', null);
     this.menu.close();
   }
 

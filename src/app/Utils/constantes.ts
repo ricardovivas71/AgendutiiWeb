@@ -2,6 +2,7 @@ export class Constantes{
 
     public static readonly formatoFechaLargo: string = 'dd/MM/yyyy hh:mm:ss a';
     public static readonly idEstadoConfirmada:number = 2;
+    public static readonly idEstadoCancelada:number = 3;
     public static readonly idEstadoRechazada:number = 4;
 
     public static readonly ApiConsultarLocalizacion: string = "/api/agendamiento/busqueda/localizacion";

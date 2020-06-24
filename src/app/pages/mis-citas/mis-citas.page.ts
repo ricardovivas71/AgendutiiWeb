@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CitasModel } from 'src/app/models/citas/citas.model';
 import { ConsultarCitasDtoModel } from 'src/app/models/citas/consultarCitasDto.model';
-
 import { ToastController } from '@ionic/angular';
-
 import { CitasService } from 'src/app/providers/citas/citas.service';
 
 import {
@@ -14,6 +12,8 @@ import {
   query,
   stagger
 } from '@angular/animations';
+import { ActualizarEstadoCitaModel } from 'src/app/models/citas/actualizarEstado.model';
+import { Constantes } from 'src/app/Utils/constantes';
 
 @Component({
   selector: 'app-mis-citas',
@@ -33,10 +33,11 @@ export class MisCitasPage implements OnInit {
   listaCitas:CitasModel[] = [];
 
   constructor(private citasService:CitasService,
-    public toastController: ToastController) { }
+    public toastController: ToastController,
+    private storage: Storage,) { }
 
   ngOnInit() {
-    this.ConsultarCitas(1);
+    this.ConsultarCitas(this.storage.get('idUsuario').then());
   }
 
   ConsultarCitas(idUsuario:number){
@@ -61,6 +62,29 @@ export class MisCitasPage implements OnInit {
       }
     });
 
+  }
+
+  cancelarCita(cita){
+    let oObjeto = new ActualizarEstadoCitaModel();
+    oObjeto.idCita = cita.idCita;
+    oObjeto.idEstado = Constantes.idEstadoCancelada;
+
+    this.citasService.gestionarCitas(oObjeto).subscribe(async result =>{
+      if(result.codigo == "1"){
+        this.ConsultarCitas(this.storage.get('idUsuario').then());
+        const toast = await this.toastController.create({
+          message: 'La cita se ha cancelado con éxito',
+          duration: 2000
+        });
+        toast.present();
+      }else{
+        const toast = await this.toastController.create({
+          message: 'Ups! Error gestionando la cita',
+          duration: 2000
+        });
+        toast.present();
+      }
+    });
   }
 
 }

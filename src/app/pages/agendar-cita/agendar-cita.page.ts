@@ -291,6 +291,7 @@ export class AgendarCitaPage implements OnInit {
 
 
   GenerarHorarioDisponible() {
+    debugger;
     this.listaHorasDispAux = [];
     this.listaHorasDisponibles = [];
     let contador: number = 2;
