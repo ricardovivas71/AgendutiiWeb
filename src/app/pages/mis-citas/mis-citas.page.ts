@@ -3,6 +3,7 @@ import { CitasModel } from 'src/app/models/citas/citas.model';
 import { ConsultarCitasDtoModel } from 'src/app/models/citas/consultarCitasDto.model';
 import { ToastController } from '@ionic/angular';
 import { CitasService } from 'src/app/providers/citas/citas.service';
+import { Storage } from '@ionic/storage';
 
 import {
   trigger,
@@ -31,17 +32,23 @@ import { Constantes } from 'src/app/Utils/constantes';
 export class MisCitasPage implements OnInit {
 
   listaCitas:CitasModel[] = [];
+  idUsuario:number;
 
   constructor(private citasService:CitasService,
     public toastController: ToastController,
     private storage: Storage,) { }
 
   ngOnInit() {
-    this.ConsultarCitas(this.storage.get('idUsuario').then());
+    this.storage.get('idUsuario').then((val) => {
+      this.idUsuario = val;
+      this.ConsultarCitas(this.idUsuario);
+    });
+    
   }
 
   ConsultarCitas(idUsuario:number){
     let oObjeto: ConsultarCitasDtoModel = new ConsultarCitasDtoModel(idUsuario);
+    console.log("MODELO MIS CITAS",oObjeto);
     this.citasService.consultarCitasPropias(oObjeto).subscribe(async resultado =>{
       if(resultado.codigo == "1"){
         if(resultado.respuesta.length > 0){
@@ -71,7 +78,7 @@ export class MisCitasPage implements OnInit {
 
     this.citasService.gestionarCitas(oObjeto).subscribe(async result =>{
       if(result.codigo == "1"){
-        this.ConsultarCitas(this.storage.get('idUsuario').then());
+        this.ConsultarCitas(this.idUsuario);
         const toast = await this.toastController.create({
           message: 'La cita se ha cancelado con éxito',
           duration: 2000

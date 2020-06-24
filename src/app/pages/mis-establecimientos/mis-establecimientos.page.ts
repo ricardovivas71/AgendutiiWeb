@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GestionarEstablecimientoService } from 'src/app/providers/gestionar-establecimientos/gestionar-establecimiento.service';
 import { EstablecimientoModel } from 'src/app/models/establecimientos/establecimiento.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Storage } from '@ionic/storage';
 
 import {
   trigger,
@@ -36,21 +37,32 @@ export class MisEstablecimientosPage implements OnInit {
   listaEstablecimientos: MisEstablecimientoModel[] = [];
   items: any;
   idEstablecimiento:number;
+  idUsuario:number;
+
   constructor(private gestionarEstService: GestionarEstablecimientoService,
               private sanitizer: DomSanitizer,
               private router: Router,
               public toastController: ToastController,
-              private activatedRoute: ActivatedRoute,) { }
+              private activatedRoute: ActivatedRoute,
+              private storage: Storage) { }
 
   ngOnInit() {
+
+    this.storage.get('idUsuario').then((val) => {
+      console.log("ID USUARIO",val);
+      this.idUsuario = val;
+    });
+
     this.idEstablecimiento = parseInt(this.activatedRoute.snapshot.paramMap.get('idEstablecimiento'));
     this.consultarMisEstablecimientos();
 
   }
 
+
+
   consultarMisEstablecimientos(){
     this.listaEstablecimientos = [];
-    let misEstablecimientos = new MisEstablecimientoModelDto(1);
+    let misEstablecimientos = new MisEstablecimientoModelDto(this.idUsuario);
     this.gestionarEstService.consultarMisEstablecimientos(misEstablecimientos).subscribe(resultado =>{
       if(resultado.codigo == 1){
         resultado.respuesta.forEach(element => {
