@@ -112,7 +112,8 @@ export class LoginPage implements OnInit {
     this.loginUsuario.loginUsuario(loginUsuario).subscribe(async resultado =>{
       console.log(resultado,'RESPUESTA SERVICIO');
       if(resultado.codigo == "1"){
-        this.storage.set('idUsuario', resultado.respuesta);
+        this.storage.set('idUsuario', resultado.respuesta.idUsuario);
+        this.storage.set('nombreUsuario', resultado.respuesta.nombreUsuario);
         console.log("login valido",resultado);
         console.log('¿Con establecimiento?',this.idEstablecimiento);
         console.log('¿Con nombre?',this.nombreEstablecimiento);
