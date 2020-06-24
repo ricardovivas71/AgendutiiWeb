@@ -46,90 +46,90 @@ export class AppComponent {
         icon: 'home'
 
       },
+      // {
+      //   title: 'Home Results',
+      //   url: '/home-results',
+      //   direct: 'root',
+      //   icon: 'browsers'
+      // },
+      // {
+      //   title: 'Home Location',
+      //   url: '/home-location',
+      //   direct: 'root',
+      //   icon: 'browsers'
+      // },
+      // {
+      //   title: 'Messages',
+      //   url: '/messages',
+      //   direct: 'forward',
+      //   icon: 'mail'
+      // },
+      // {
+      //   title: 'Properties',
+      //   url: '/property-list',
+      //   direct: 'forward',
+      //   icon: 'home'
+      // },
+      // {
+      //   title: 'Brokers',
+      //   url: '/broker-list',
+      //   direct: 'forward',
+      //   icon: 'people'
+      // },
+      // {
+      //   title: 'Nearby',
+      //   url: '/nearby',
+      //   direct: 'forward',
+      //   icon: 'compass'
+      // },
+      // {
+      //   title: 'By Category',
+      //   url: '/bycategory',
+      //   direct: 'forward',
+      //   icon: 'albums'
+      // },
+      // {
+      //   title: 'Invoices',
+      //   url: '/invoices',
+      //   direct: 'forward',
+      //   icon: 'list-box'
+      // },
+      // {
+      //   title: 'Favorites',
+      //   url: '/favorites',
+      //   direct: 'forward',
+      //   icon: 'heart'
+      // },
+      // {
+      //   title: 'About',
+      //   url: '/about',
+      //   direct: 'forward',
+      //   icon: 'information-circle-outline'
+      // },
       {
-        title: 'Home Results',
-        url: '/home-results',
-        direct: 'root',
-        icon: 'browsers'
-      },
-      {
-        title: 'Home Location',
-        url: '/home-location',
-        direct: 'root',
-        icon: 'browsers'
-      },
-      {
-        title: 'Messages',
-        url: '/messages',
-        direct: 'forward',
-        icon: 'mail'
-      },
-      {
-        title: 'Properties',
-        url: '/property-list',
-        direct: 'forward',
-        icon: 'home'
-      },
-      {
-        title: 'Brokers',
-        url: '/broker-list',
-        direct: 'forward',
-        icon: 'people'
-      },
-      {
-        title: 'Nearby',
-        url: '/nearby',
-        direct: 'forward',
-        icon: 'compass'
-      },
-      {
-        title: 'By Category',
-        url: '/bycategory',
-        direct: 'forward',
-        icon: 'albums'
-      },
-      {
-        title: 'Invoices',
-        url: '/invoices',
-        direct: 'forward',
-        icon: 'list-box'
-      },
-      {
-        title: 'Favorites',
-        url: '/favorites',
-        direct: 'forward',
-        icon: 'heart'
-      },
-      {
-        title: 'About',
-        url: '/about',
-        direct: 'forward',
-        icon: 'information-circle-outline'
-      },
-      {
-        title: 'Support',
+        title: 'Contacto',
         url: '/support',
         direct: 'forward',
         icon: 'help-buoy'
       },
-      {
-        title: 'App Settings',
-        url: '/settings',
-        direct: 'forward',
-        icon: 'cog'
-      },
-      {
-        title: 'Walkthrough',
-        url: '/',
-        direct: 'root',
-        icon: 'photos'
-      },
-      {
-        title: 'Extras',
-        url: '/extras',
-        direct: 'forward',
-        icon: 'paper'
-      }
+      // {
+      //   title: 'App Settings',
+      //   url: '/settings',
+      //   direct: 'forward',
+      //   icon: 'cog'
+      // },
+      // {
+      //   title: 'Walkthrough',
+      //   url: '/',
+      //   direct: 'root',
+      //   icon: 'photos'
+      // },
+      // {
+      //   title: 'Extras',
+      //   url: '/extras',
+      //   direct: 'forward',
+      //   icon: 'paper'
+      // }
     ];
 
     this.initializeApp();
@@ -138,7 +138,7 @@ export class AppComponent {
   initializeApp() {
     this.storage.get('nombreUsuario').then((val) => {
       console.log('NOMBRE Login', val);
-      if(val != 0 && val != null){
+      if(val != '' && val != null){
         this.nombreUsuario = val;
       }else{
       this.nombreUsuario = null;
@@ -169,6 +169,7 @@ export class AppComponent {
 
   closeMenu() {
     this.storage.set('idUsuario', null);
+    this.storage.set('nombreUsuario', null);
     this.menu.close();
   }
 
