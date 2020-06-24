@@ -1,26 +1,73 @@
 <ion-header>
-    <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-        <ion-menu-button color="tertiary"></ion-menu-button>
-      </ion-buttons>
-      <ion-title>
-          <ion-text color="light">
-              Mis Citas
-          </ion-text>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button color="tertiary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-text color="light">
+        Mis Citas
+      </ion-text>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content>
 
-      <ion-grid class="ion-no-padding" fixed>      
+<ion-content>
+
+  <ion-list class="ion-no-padding ion-no-margin" [@staggerIn]="listaCitas" *ngIf="listaCitas.length > 0">
+    <ion-item-sliding *ngFor="let cita of listaCitas" #slidingList>
+      <ion-item lines="none" class="bg-white" tappable (click)="AgendarCita(establecimiento)">
+        <ion-label class="ion-text-wrap" style="text-align: justify">
+          <h2>
+            <ion-text color="dark"><strong>{{cita.nombreEstablecimiento}}</strong></ion-text>
+          </h2>
+          <p class="text-12x">
+            <ion-icon name="locate"></ion-icon>
+            <ion-text color="primary">{{cita.direccionEstablecimiento}}</ion-text>
+          </p>
+          <p class="text-12x">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-text color="primary">{{cita.fechaCita}}</ion-text>
+          </p>
+          <p class="text-12x">
+            <ion-icon name="document"></ion-icon>
+            <ion-text color="primary">{{cita.servicio}}</ion-text> ∙ ∙
+            <ion-icon name="person"></ion-icon>
+            <ion-text color="secondary">{{ cita.colaborador }}</ion-text>
+          </p>
+
+          <ion-badge slot="end" color="primary" class="badgeCitas">
+            <ion-text color="light">
+              <ion-icon name="cash"></ion-icon> $ {{cita.precio}}
+            </ion-text>
+          </ion-badge>
+
+          <ion-badge slot="end" color="secondary" class="badgeCitas">
+            <ion-text color="light">
+              <ion-icon name="alarm"></ion-icon> {{cita.tiempoAtencion}} min
+            </ion-text>
+          </ion-badge>
+
+          <ion-badge slot="end" color="secondary" class="badgeCitas">
+            <ion-text color="light">{{cita.estado}}</ion-text>
+          </ion-badge>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option color="danger" (click)="cancelarCita(cita)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- <ion-grid class="ion-no-padding" fixed>      
           <div class="ion-no-margin" [@staggerIn]="listaCitas">
-            <!-- # -->
+
             <ion-item lines="none" class="bg-white" tappable *ngFor="let cita of listaCitas" (click)="AgendarCita(establecimiento)">
                 <ion-thumbnail slot="start">
                     <img src="assets/icon/ImagenLugar.jpg">
-                    <!-- <ion-icon src="assets/icon/barberia.svg"></ion-icon> -->
+                 
                 </ion-thumbnail>
               <ion-label class="ion-text-wrap" style="text-align: justify">
                 <h2>
@@ -54,8 +101,8 @@
                 </ion-badge>
               </ion-label>
             </ion-item>
-            <!-- # -->
+
           </div>
       
-        </ion-grid>     
-  </ion-content>
+        </ion-grid>      -->
+</ion-content>

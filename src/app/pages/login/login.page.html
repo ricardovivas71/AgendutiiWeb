@@ -41,12 +41,12 @@
         </ion-text>
         </p>
     </form>
-
-    <p tappable (click)="forgotPass()" class="ion-text-right paz">
+    <br>
+    <!-- <p tappable (click)="forgotPass()" class="ion-text-right paz">
       <ion-text color="light">
         <strong>{{ 'app.pages.login.label.forgot' | translate }}</strong>
       </ion-text>
-    </p>
+    </p> -->
 
     <div>
       <ion-button icon-left size="medium" expand="full" shape="round" color="dark" (click)="goToHome()" [disabled]="!onLoginForm.valid" tappable>
@@ -54,13 +54,13 @@
         {{ 'app.button.signin' | translate }}
       </ion-button>
 
-      <p class="ion-text-center">
+      <!-- <p class="ion-text-center">
         <ion-text color="light">
           Or {{ 'app.button.signin' | translate }} with:
         </ion-text>
-      </p>
+      </p> -->
 
-      <ion-grid class="btn-group">
+      <!-- <ion-grid class="btn-group">
         <ion-row>
           <ion-col size="4">
             <ion-button shape="round" expand="full" color="secondary">
@@ -78,7 +78,7 @@
             </ion-button>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
 
     </div>
 
@@ -86,7 +86,7 @@
     <div class="ion-text-center ion-margin-top">
       <span (click)="goToRegister()" class="paz" tappable>
         <ion-text color="light">
-          New here? <strong>{{ 'app.button.signup' | translate }}</strong>
+          Eres nuevo? Registrate!
         </ion-text>
       </span>
     </div>
