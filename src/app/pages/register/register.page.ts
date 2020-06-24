@@ -37,21 +37,8 @@ export class RegisterPage implements OnInit {
       'email': [null, Validators.compose([Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$'), Validators.maxLength(50)])],
       'telefono': [null, Validators.compose([Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]{10}$')])],
       'contrasena': [null, Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])],
-      'reContrasena': [null, Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])],
       'tipoUsuario': [null, false]
     });
-  }
-
-  /**
-   * Autor: Fabián Orozco
-   * Fecha: 17/June/2020
-   * Descripción: Valida la contraseña digitada
-   */  
-  validaContrasena(){
-    
-
-
-
   }
 
   async signUp() {
@@ -65,38 +52,34 @@ export class RegisterPage implements OnInit {
         this.onRegisterForm.get('tipoUsuario').value
       );
       
-      // const loader = await this.loadingCtrl.create();
-      // loader.present();
+      const loader = await this.loadingCtrl.create();
+      loader.present();
       this.registroUsuario.registrarUsuario(registroUsuario).subscribe(async resultado =>{
-        console.log(resultado,'RESPUESTA SERVICIO');
+      
+        loader.onWillDismiss().then(async l => {
+        console.log(resultado,'resultado/signUp')
         if(resultado.codigo == "1"){
-          this.storage.set('idUsuario', resultado.respuesta);
-          const toast = await this.toastController.create({
-            message: 'Usuario creado con éxito',
-            duration: 2000
-          });
-          toast.present();
-          if(registroUsuario.tipoUsuario)
-          {
-            //Redirigir a crear establecimiento
-            this.router.navigate(['/mis-establecimientos']);
+           this.storage.set('idUsuario', resultado.respuesta);
+           const toast = await this.toastController.create({
+              message: 'Usuario creado con éxito',
+              duration: 2000
+            });
+            toast.present();
+            if(registroUsuario.tipoUsuario)
+                this.router.navigate(['/mis-establecimientos']);
+            else
+                this.router.navigate(['/home']);
           }else{
-            //Redirigir a agendar citas
-            this.router.navigate(['/home']);
-          }
-        }else{
           const toast = await this.toastController.create({
             message: 'Ups! ha ocurrido un error, intenta nuevamente',
             duration: 2000
           });
           toast.present();
-        }}
+        }
+        });
+        loader.dismiss();
+      }
       );
-
-      // loader.onWillDismiss().then(() => {
-      //   this.navCtrl.navigateRoot('/home-location');
-      //   });
-
   }
 
   goToLogin() {
