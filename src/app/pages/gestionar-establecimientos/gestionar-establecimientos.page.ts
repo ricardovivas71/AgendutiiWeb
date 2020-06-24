@@ -11,6 +11,7 @@ import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { HorasDisponiblesModel } from 'src/app/models/agendar/horasDisponibles.model';
 import { DatePipe } from '@angular/common';
 import { Constantes } from 'src/app/Utils/constantes';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -26,16 +27,22 @@ export class GestionarEstablecimientosPage implements OnInit {
   public listaHorasDisponibles: HorasDisponiblesModel[] = [];
   public treintaMinutos: number = 1800000;
   @ViewChild('fileInput', { static: false }) fileInput;
+  idUsuario:number;
 
   constructor(private formBuilder: FormBuilder,
     private gestionarEstService: GestionarEstablecimientoService,
     public toastController: ToastController,
     private camera: Camera,
     private router: Router,
+    private storage: Storage,
     @Inject(LOCALE_ID) private locale: string) { }
 
 
   ngOnInit() {
+    this.storage.get('idUsuario').then((val) => {
+      console.log("ID USUARIO",val);
+      this.idUsuario = val;
+    });
     this.crearRangoHorario();
     this.obtenerCiudades();
     this.obtenerTipoEstablecimientos();
@@ -137,7 +144,7 @@ export class GestionarEstablecimientosPage implements OnInit {
       this.formularioRegistro.get('tipoEstablecimiento').value,
       this.formularioRegistro.get('barrio').value,
       this.formularioRegistro.get('descripcion').value,
-      1,
+      this.idUsuario,
       5,
       parseInt(this.formularioRegistro.get('capacidad').value),
       this.formularioRegistro.get('imagen').value,

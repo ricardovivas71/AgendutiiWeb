@@ -75,6 +75,12 @@
     </ion-item-sliding>
   </ion-list>
 
+  <ion-list class="ion-no-padding" *ngIf="listaEstablecimientos.length == 0">
+    <ion-item>
+      <ion-label>No existen establecimientos registrados</ion-label>
+    </ion-item>
+  </ion-list>
+
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
     <ion-fab-button color="secondary" (click)="registrarEstablecimiento()">

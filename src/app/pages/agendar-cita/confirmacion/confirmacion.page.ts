@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { Constantes } from 'src/app/Utils/constantes';
 import { AgendarService } from 'src/app/providers/agendar/agendar.service';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-confirmacion',
@@ -19,18 +20,20 @@ export class ConfirmacionPage implements OnInit {
   @Input() colaboradorSeleccionado: EmpleadosModel;
   @Input() servicioSeleccionado: ServiciosModel;
   @Input() horaSeleccionada: Date;
+  idUsuario:number;
 
   constructor(private modalCtrk:ModalController,
     @Inject(LOCALE_ID) private locale: string,
     private agendarService: AgendarService,
     public toastController: ToastController,
-    private router: Router,) { }
+    private router: Router,
+    private storage: Storage) { }
 
   ngOnInit() {
-    console.log("fechaInicioCita",this.fechaInicioCita);
-    console.log("colaboradorSeleccionado",this.colaboradorSeleccionado);
-    console.log("servicioSeleccionado",this.servicioSeleccionado);
-    console.log("horaSeleccionada",this.horaSeleccionada);
+    this.storage.get('idUsuario').then((val) => {
+      console.log("ID USUARIO",val);
+      this.idUsuario = val;
+    });
   }
 
   Cancelar(){
@@ -46,7 +49,7 @@ export class ConfirmacionPage implements OnInit {
     const duracionServicioCita = this.servicioSeleccionado.tiempoAtencion * 60 * 1000;
     const fechaFinCita = this.fechaInicioCita.getTime() + duracionServicioCita;
     let observacion = "Cita prueba";
-    let idusuario = 1;
+    let idusuario = this.idUsuario;
     let idEmpleado = this.colaboradorSeleccionado.idEmpleado;
 
     let oAgendarCita = new AgendarCitaModel(
