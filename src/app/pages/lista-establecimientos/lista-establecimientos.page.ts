@@ -29,6 +29,7 @@ export class ListaEstablecimientosPage implements OnInit {
 
   listaEstablecimientos: EstablecimientoModel[] = [];
   items: any;
+  filtrando = false;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -53,6 +54,7 @@ export class ListaEstablecimientosPage implements OnInit {
   }
 
   obtenerEstablecimiento(establecimiento: any) {
+    this.filtrando = true;
     console.log("filtrando..", establecimiento.target.value);
     this.inicializarLista();
     let establecimientoSeleccionado = establecimiento.target.value;
@@ -68,9 +70,12 @@ export class ListaEstablecimientosPage implements OnInit {
 
   inicializarLista() {
 
-    this.listaEstablecimientos.forEach((element,index) =>{
-      element.imagen = element.imagen != "" ? this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen) : "";
-    });
+    if(!this.filtrando)
+    {
+      this.listaEstablecimientos.forEach((element,index) =>{
+        element.imagen = element.imagen != "" ? this.sanitizer.bypassSecurityTrustResourceUrl(element.imagen) : "";
+      });
+    }
     console.log("RESULTADO ESTABLECIMIENTOS",this.listaEstablecimientos);
     this.items = this.listaEstablecimientos;
   }
