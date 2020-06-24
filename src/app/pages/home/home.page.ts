@@ -130,7 +130,8 @@ export class HomePage implements OnInit {
   }
 
   Registrarse(){
-    this.router.navigate(['/registrar-usuario']);
+    // this.navCtrl.navigateRoot('/register');
+    this.router.navigate(['/register']);
   }
 
 }
