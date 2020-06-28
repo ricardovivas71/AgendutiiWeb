@@ -16,6 +16,7 @@ import { AdMobFree, AdMobFreeInterstitialConfig } from '@ionic-native/admob-free
 import { ConfirmacionPage } from './confirmacion/confirmacion.page';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CitasEmpleadoModel } from 'src/app/models/citas/citasEmpleado';
 
 @Component({
   selector: 'app-agendar-cita',
@@ -273,6 +274,7 @@ export class AgendarCitaPage implements OnInit {
       console.log("Resultado Horario Establecimiento", resultado);
       if (resultado.codigo == 1) {
         this.listaHorarioEstablecimiento = resultado.respuesta as HorarioEstablecimientoModel[];
+        this.GenerarHorarioEstablecimiento(this.listaHorarioEstablecimiento);
       }
     });
   }
@@ -284,53 +286,67 @@ export class AgendarCitaPage implements OnInit {
       console.log("Resultado Horario Nigga", resultado);
       if (resultado.codigo == 1) {
         this.listaCitasEmpleado = resultado.respuesta as HorarioEmpleadoModel[];
+        this.GenerarHorasEmpleado(this.listaCitasEmpleado);
       }
-      this.GenerarHorarioDisponible();
+      //this.GenerarHorarioDisponible();
+      
     });
   }
 
+  GenerarHorasEmpleado(listaCitasEmpleado: HorarioEmpleadoModel[]){
+    let listaHorasOcupaEmpleado: HorasDisponiblesModel[] = [];
+    let contador = 1;
+    for(let i=0;i<listaCitasEmpleado.length;i++){
+      let horaInicio = new Date(listaCitasEmpleado[i].fechaInicio);
+      let horaFin = new Date(listaCitasEmpleado[i].fechaFin);
 
-  GenerarHorarioDisponible() {
-    debugger;
-    this.listaHorasDispAux = [];
+      while(horaInicio.getTime() < horaFin.getTime()){
+        listaHorasOcupaEmpleado.push(new HorasDisponiblesModel(contador,horaInicio,true));
+        let pivote = horaInicio.getTime() + this.quinceMinutos;
+        let siguienteHora = new Date(pivote);
+        horaInicio = new Date(siguienteHora);
+        contador++;
+      }
+    }
+    console.log("Horas ocupadas empleado",listaHorasOcupaEmpleado);
+    this.HorasDisponiblesCita(listaHorasOcupaEmpleado);
+  }
+
+  HorasDisponiblesCita(listaHorasOcupaEmpleado:HorasDisponiblesModel[]){
+    this.listaHorasDisponibles.forEach((element,index) =>{
+      let encontrar = listaHorasOcupaEmpleado.find(horaEmp => horaEmp.hora.getTime() == element.hora.getTime());
+      console.log("ENCONTRAR",encontrar);
+      if(encontrar){
+        this.listaHorasDisponibles[index].disponible = false;
+      }
+    });
+    this.listaHorasDisponibles = this.listaHorasDisponibles.filter(x => x.disponible);
+    console.log("HORAS DISPONIBLES CITA",this.listaHorasDisponibles);
+  }
+
+  GenerarHorarioEstablecimiento(listaHorarioEstablecimiento: HorarioEstablecimientoModel[]) {
     this.listaHorasDisponibles = [];
     let contador: number = 2;
     let horaInicioSitio = new Date();
-    horaInicioSitio.setHours(new Date(this.listaHorarioEstablecimiento[0].horaInicio).getHours());
-    horaInicioSitio.setMinutes(new Date(this.listaHorarioEstablecimiento[0].horaInicio).getMinutes());
+    horaInicioSitio.setHours(new Date(listaHorarioEstablecimiento[0].horaInicio).getHours());
+    horaInicioSitio.setMinutes(new Date(listaHorarioEstablecimiento[0].horaInicio).getMinutes());
     horaInicioSitio.setSeconds(0);
+    horaInicioSitio.setMilliseconds(0);
     let horaFinSitio = new Date();
-    horaFinSitio.setHours(new Date(this.listaHorarioEstablecimiento[0].horaFin).getHours());
-    horaFinSitio.setMinutes(new Date(this.listaHorarioEstablecimiento[0].horaFin).getMinutes());
+    horaFinSitio.setHours(new Date(listaHorarioEstablecimiento[0].horaFin).getHours());
+    horaFinSitio.setMinutes(new Date(listaHorarioEstablecimiento[0].horaFin).getMinutes());
     horaFinSitio.setSeconds(0);
+    horaFinSitio.setMilliseconds(0);
 
-    this.listaHorasDisponibles.push(new HorasDisponiblesModel(1, horaInicioSitio));
+    this.listaHorasDisponibles.push(new HorasDisponiblesModel(1, horaInicioSitio,true));
 
     while (horaFinSitio.getTime() > horaInicioSitio.getTime()) {
       let pivote = horaInicioSitio.getTime() + this.quinceMinutos;
       let siguienteHora = new Date(pivote);
-      this.listaHorasDisponibles.push(new HorasDisponiblesModel(contador, siguienteHora));
+      this.listaHorasDisponibles.push(new HorasDisponiblesModel(contador, siguienteHora,true));
       horaInicioSitio = new Date(siguienteHora);
       contador++;
     }
-
-    for (let i = 0; i < this.listaHorasDisponibles.length; i++) {
-      for (let j = 0; j < this.listaCitasEmpleado.length; j++) {
-        if (this.listaHorasDisponibles[i].hora.getHours() == new Date(this.listaCitasEmpleado[j].fechaInicio).getHours() && this.listaHorasDisponibles[i].hora.getMinutes() == new Date(this.listaCitasEmpleado[j].fechaInicio).getMinutes()) {
-          while (new Date(this.listaHorasDisponibles[i].hora).getTime() < new Date(this.listaCitasEmpleado[j].fechaFin).getTime()) {
-            this.listaHorasDisponibles.splice(i, 1);
-          }
-        }
-      }
-    }
-    let contadorDisp = 0;
-    for (let k = 0; k < this.listaHorasDisponibles.length; k++) {
-      this.listaHorasDispAux.push(new HorasDisponiblesModel(contadorDisp, this.listaHorasDisponibles[k].hora));
-      contadorDisp++;
-    }
-    console.log("HORAS DISP", this.listaHorasDispAux);
-
-
+    console.log("Horario Establecimiento",this.listaHorasDisponibles);
   }
-
 }

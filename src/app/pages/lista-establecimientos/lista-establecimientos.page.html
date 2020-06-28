@@ -18,8 +18,32 @@
 
       <ion-grid class="ion-no-padding" fixed> 
           <div class="ion-no-margin" [@staggerIn]="items">
-            <!-- # -->
-            <ion-item lines="none" class="bg-white" tappable *ngFor="let establecimiento of items" (click)="AgendarCita(establecimiento)">
+
+
+            <ion-item class="ion-no-padding ion-no-margin" tappable *ngFor="let establecimiento of items" (click)="AgendarCita(establecimiento)">
+              <ion-card class="bg-white" >
+            
+                <span class="card-img-status fw500 text-white closed">
+                  {{ establecimiento.nombreCategoria }}
+                </span>
+          
+                <img [src]="establecimiento.imagen" (load)="loaded = true" [ngClass]="{'img-loaded':loaded}" [hidden]="!loaded" />
+                <ion-spinner [ngClass]="{'center':true}" *ngIf="!loaded"></ion-spinner>
+          
+                <ion-card-content>                          
+                    <ion-card-title>     
+                      <ion-text color="primary"><h5>{{establecimiento.nombre}}</h5></ion-text>      
+                      <ion-text color="dark"><h6>{{establecimiento.barrio}}, {{establecimiento.direccion}}</h6></ion-text>
+                      <ion-text color="secondary">
+                        <h6>{{establecimiento.descripcion}} </h6>
+                      </ion-text>
+                    </ion-card-title>
+                </ion-card-content>
+              </ion-card>
+            </ion-item>
+
+
+            <!-- <ion-item lines="none" class="bg-white" tappable *ngFor="let establecimiento of items" (click)="AgendarCita(establecimiento)">
 
 
               <ion-thumbnail class="ion-margin" slot="start" *ngIf="establecimiento.imagen != ''">
@@ -36,29 +60,12 @@
                   <p class="text-12x">
                     <ion-text color="primary">{{establecimiento.direccion}}</ion-text>
                   </p>
-                  <p class="text-10x">
-                      <ion-text color="secondary">Almacenamiento que presta servicios de belleza con excelente calidad y manjeando todos los protocolo de bioseguridad</ion-text>
-                      <!-- <ion-text color="primary">{{establecimiento.descripcion}}</ion-text> ∙ <ion-text color="secondary">{{ property.price }}</ion-text> -->
-                  </p> 
+ 
                 </ion-label>
-            </ion-item>
-            <!-- # -->
+            </ion-item> -->
+
           </div>
       
         </ion-grid>
     </ion-content>
   
-  <!-- <ion-content fullscreen>
-    <ion-list>
-      <ion-item *ngFor="let establecimiento of items" style="width: 100%;cursor: pointer;" (click)="AgendarCita(establecimiento)">
-        <ion-avatar slot="start">
-          <ion-icon class="small" src="assets/icon/barberia.svg"></ion-icon>
-        </ion-avatar>
-        <ion-label>
-          <h3>{{establecimiento.nombre}}</h3>
-          <p>{{establecimiento.direccion}}</p>
-          <p>{{establecimiento.descripcion}}</p>
-        </ion-label>
-      </ion-item>
-   </ion-list>
-  </ion-content> -->

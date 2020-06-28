@@ -75,7 +75,7 @@ export class GestionarEstablecimientosPage implements OnInit {
     while (horaFin.getTime() >= horaInicio.getTime()) {
       let pivote = horaInicio.getTime() + this.treintaMinutos;
       let siguienteHora = new Date(pivote);
-      this.listaHorasDisponibles.push(new HorasDisponiblesModel(contador, siguienteHora));
+      this.listaHorasDisponibles.push(new HorasDisponiblesModel(contador, siguienteHora,true));
       horaInicio = new Date(siguienteHora);
       contador++;
     }
