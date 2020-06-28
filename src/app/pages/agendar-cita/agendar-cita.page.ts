@@ -312,7 +312,13 @@ export class AgendarCitaPage implements OnInit {
     this.HorasDisponiblesCita(listaHorasOcupaEmpleado);
   }
 
-  HorasDisponiblesCita(listaHorasOcupaEmpleado:HorasDisponiblesModel[]){
+  async HorasDisponiblesCita(listaHorasOcupaEmpleado:HorasDisponiblesModel[]){
+    this.listaHorasDisponibles.forEach(element =>{
+      element.hora.setFullYear(listaHorasOcupaEmpleado[0].hora.getFullYear());
+      element.hora.setMonth(listaHorasOcupaEmpleado[0].hora.getMonth());
+      element.hora.setDate(listaHorasOcupaEmpleado[0].hora.getDate());
+    });
+
     this.listaHorasDisponibles.forEach((element,index) =>{
       let encontrar = listaHorasOcupaEmpleado.find(horaEmp => horaEmp.hora.getTime() == element.hora.getTime());
       console.log("ENCONTRAR",encontrar);
@@ -321,6 +327,13 @@ export class AgendarCitaPage implements OnInit {
       }
     });
     this.listaHorasDisponibles = this.listaHorasDisponibles.filter(x => x.disponible);
+    if(this.listaHorasDisponibles.length == 0){
+      const toast = await this.toastController.create({
+        message: 'No existen horarios disponibles para el día y servicio seleccionados, por favor intente con otro colaborador',
+        duration: 2000
+      });
+      toast.present();
+    }
     console.log("HORAS DISPONIBLES CITA",this.listaHorasDisponibles);
   }
 
