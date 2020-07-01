@@ -55,7 +55,7 @@
     <br>
     <ion-row>
       <ion-col size="12">
-        <ion-button expand="block" color="secondary" (click)="BuscarSitios()">
+        <ion-button expand="block" color="secondary" (click)="BuscarSitios()" [disabled]="servicioSeleccionado == undefined || ciudadSeleccionada == undefined">
             <ion-icon slot="start" color="light" name="search"></ion-icon>
             <ion-text color="light">Buscar</ion-text>
         </ion-button>

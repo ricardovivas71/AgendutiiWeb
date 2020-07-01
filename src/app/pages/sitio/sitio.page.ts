@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalizacionModel } from 'src/app/models/home/localizacion.model';
 import { BarrioModel } from 'src/app/models/home/barrio.model';
@@ -15,6 +15,7 @@ import {
   query,
   stagger
 } from '@angular/animations';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sitio',
@@ -34,17 +35,16 @@ export class SitioPage implements OnInit {
   items: any;
   listaCiudades: LocalizacionModel[] = [];
   listaBarrios: BarrioModel[] = [];
-  tituloPagina:string;
-  idCiudadBarrio:number = 0;
+
+  @Input() tituloPagina: string;
+  @Input() idCiudadBarrio: number;
 
   constructor(private activatedRoute: ActivatedRoute,
     private homeService: HomeService,
-    private globalesService:VariablesGlobalesService,
-    private router: Router,) { }
+    public modalController: ModalController,) { }
 
   ngOnInit() {
-    this.tituloPagina = this.activatedRoute.snapshot.paramMap.get('titulo');
-    this.idCiudadBarrio = parseInt(this.activatedRoute.snapshot.paramMap.get('idCiudad'));
+
     if(this.tituloPagina == "Buscar barrios"){
       this.obtenerBarrios();
     }else{
@@ -99,16 +99,15 @@ export class SitioPage implements OnInit {
     }
   }
 
-  ciudadSeleccionada(objetoSeleccionado: any) {
+  ciudadSeleccionada(objetoSeleccionado: LocalizacionModel) {
     if(this.tituloPagina == "Buscar ciudades"){
-      this.globalesService.ciudadSeleccionada = objetoSeleccionado;
-      console.log("Ciudad seleccionada", this.globalesService.ciudadSeleccionada);
-      this.router.navigate(['/home',{ciudadSeleccionada: JSON.stringify(objetoSeleccionado)}]);
+      this.modalController.dismiss({
+        'ciudadSeleccionada': objetoSeleccionado
+      });
     }else{
-      console.log("Barrio Seleccionado", objetoSeleccionado);
-      this.globalesService.barrioSeleccionado = objetoSeleccionado;
-      console.log("glabeles", this.globalesService.ciudadSeleccionada);
-      this.router.navigate(['/home',{barrioSeleccionado: JSON.stringify(objetoSeleccionado),ciudadSeleccionada: JSON.stringify(this.globalesService.ciudadSeleccionada)}]);
+      this.modalController.dismiss({
+        'barrioSeleccionado': objetoSeleccionado
+      });
     }
   }
 

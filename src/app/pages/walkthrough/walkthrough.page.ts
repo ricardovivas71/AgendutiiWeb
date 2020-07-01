@@ -40,18 +40,18 @@ export class WalkthroughPage implements OnInit {
       }else{
         this.slideList = [
           {
-            title: 'What is <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
-            image: 'assets/img/house01.png',
+            title: 'Qué es <strong><span class="text-tertiary">Agendutti</strong>?',
+            description: 'Es una aplicación móvil que te permite agendar tu cita en peluquerías, barberías o spa de uñas!',
+            image: 'assets/img/Agendutti.png',
           },
           {
-            title: 'Why <strong>ion<span class="text-tertiary">Property</span> 2</strong>?',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
+            title: 'Tienes un <strong><span class="text-tertiary">Negocio</span></strong>?',
+            description: 'Registra gratis tu peluquería, barbería o spa de uñas!',
             image: 'assets/img/business01.png',
           },
           {
-            title: '<strong>Find your perfect place!</strong>',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque maximus, dui accumsan cursus lacinia, nisl risus.',
+            title: '<strong>Agendutti es gratis</strong>',
+            description: 'Se acabaron las filas, agenda tu cita ahora!',
             image: 'assets/img/rent01.png',
           }
         ];

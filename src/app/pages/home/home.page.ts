@@ -8,10 +8,11 @@ import { BuscarEstablecimientoModel } from 'src/app/models/establecimientos/busc
 import { BarrioModel } from 'src/app/models/home/barrio.model';
 import { HomeService } from 'src/app/providers/home/home.service';
 
-import { NavController, MenuController, LoadingController } from '@ionic/angular';
+import { NavController, MenuController, LoadingController, ToastController, ModalController } from '@ionic/angular';
 
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
+import { SitioPage } from '../sitio/sitio.page';
 
 @Component({
   selector: 'app-home',
@@ -32,24 +33,16 @@ export class HomePage implements OnInit {
               public menuCtrl: MenuController,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private globalesService:VariablesGlobalesService) { }
+              private globalesService:VariablesGlobalesService,
+              public toastController: ToastController,
+              public modalController: ModalController) { }
 
   ngOnInit() {
-
-    this.ciudadSeleccionada = JSON.parse(this.activatedRoute.snapshot.paramMap.get('ciudadSeleccionada'));
-    this.barrioSeleccionado = JSON.parse(this.activatedRoute.snapshot.paramMap.get('barrioSeleccionado'));
     this.ConsultarDatosIniciales(1);
-    this.funcionHabilitarBusqueda();
   }
 
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
-  }
-
-  funcionHabilitarBusqueda(){
-    if(this.ciudadSeleccionada != undefined && (this.globalesService.idServicioSelccionado != 0 || this.servicioSeleccionado != null)){
-      this.habilitarBusqueda = true;
-    }
   }
 
   /*
@@ -91,8 +84,22 @@ export class HomePage implements OnInit {
   * Fecha: 24/Mayo/2020
   * Descripción: Dirige a la pantalla de selecionar Ciudades
   */
-  obtenerCiudad() {
-    this.router.navigate(['/sitio',{ titulo: 'Buscar ciudades'}]);
+  async obtenerCiudad() {
+    console.log("Click obtener ciudad");
+    const modal = await this.modalController.create({
+      component: SitioPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'tituloPagina': "Buscar ciudades"
+      }
+    });
+
+    modal.onDidDismiss()
+      .then((data:any) => {
+        this.ciudadSeleccionada = data.data.ciudadSeleccionada;
+    });
+    
+    return await modal.present();
   }
 
   /**
@@ -100,33 +107,60 @@ export class HomePage implements OnInit {
   * Fecha: 24/Mayo/2020
   * Descripción: Dirige a la pantalla de selccionar barrios
   */
-  obtenerBarrio(){
-    this.router.navigate(['/sitio',{titulo: 'Buscar barrios',idCiudad:this.ciudadSeleccionada.idLocalizacion}]);
+  async obtenerBarrio(){
+    console.log("Click obtener ciudad");
+    const modal = await this.modalController.create({
+      component: SitioPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        'tituloPagina': "Buscar barrios",
+        'idCiudadBarrio': this.ciudadSeleccionada.idLocalizacion
+      }
+    });
+
+    modal.onDidDismiss()
+    .then((data:any) => {
+      this.barrioSeleccionado = data.data.barrioSeleccionado;
+  });
+  
+  return await modal.present();
   }
 
   seleccionarServicio(event){
     console.log("Servicio seleccionado",event.nombre);
     this.globalesService.idServicioSelccionado = event.idCategoriaEst;
     this.servicioSeleccionado = event;
-    this.funcionHabilitarBusqueda();
   }
 
-  BuscarSitios() {
-    let buscarEstablecimiento = new BuscarEstablecimientoModel(
-      this.ciudadSeleccionada.idLocalizacion,
-      this.barrioSeleccionado != undefined ? this.barrioSeleccionado.nombre : "",
-      this.globalesService.idServicioSelccionado
-    );
-    this.homeService.consultarEstablecimientos(buscarEstablecimiento).subscribe(resultado =>{
-      if(resultado.codigo == 1){
-        this.listaEstablecimientos = resultado.respuesta as EstablecimientoModel[];
-        console.log("Resultado establecimientos",this.listaEstablecimientos);
-        this.router.navigate(['/lista-establecimientos',{lista: JSON.stringify(this.listaEstablecimientos)}]);
-        
-      }else{
-        console.log("Error consultando establecimientos",resultado);
-      }
-    });
+  async BuscarSitios() {
+    console.log("Servicio seleccionado",this.servicioSeleccionado);
+    if(this.servicioSeleccionado == undefined){
+      const toast = await this.toastController.create({
+        message: 'Por favor selecciona un servicio',
+        duration: 2000
+      });
+      toast.present();
+    }else{
+
+      let buscarEstablecimiento = new BuscarEstablecimientoModel(
+        this.ciudadSeleccionada.idLocalizacion,
+        this.barrioSeleccionado != undefined ? this.barrioSeleccionado.nombre : "",
+        this.globalesService.idServicioSelccionado
+      );
+      this.homeService.consultarEstablecimientos(buscarEstablecimiento).subscribe(resultado =>{
+        if(resultado.codigo == 1){
+          this.listaEstablecimientos = resultado.respuesta as EstablecimientoModel[];
+          console.log("Resultado establecimientos",this.listaEstablecimientos);
+          this.router.navigate(['/lista-establecimientos',{lista: JSON.stringify(this.listaEstablecimientos)}]);
+          
+        }else{
+          console.log("Error consultando establecimientos",resultado);
+        }
+      });
+
+    }
+
+
   }
 
   Registrarse(){

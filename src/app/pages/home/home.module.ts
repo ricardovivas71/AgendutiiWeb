@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeService } from 'src/app/providers/home/home.service';
 import { VariablesGlobalesService } from 'src/app/providers/VariablesGlobales/variables-globales.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SitioPage } from '../sitio/sitio.page';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [HomePage],
-  providers:[HomeService,VariablesGlobalesService]
+  declarations: [HomePage,SitioPage],
+  providers:[HomeService,VariablesGlobalesService],
+  entryComponents:[SitioPage]
 })
 export class HomePageModule {}
